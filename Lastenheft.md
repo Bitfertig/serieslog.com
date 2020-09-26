@@ -6,7 +6,7 @@
 - Account/Benutzername kann optional geändert werden
 - Password kann gesetzt werden, dann ist es nicht öffentlich
 - Ohne Passwort kann jeder bearbeiten
-- Mit Passwort muss zuerst Password-Eingabe erfolgen
+- Mit Passwort muss zuerst Passwort-Eingabe erfolgen
 
 ## Eingabefelder 
 
@@ -28,3 +28,10 @@
 (Button für Kategorie hinzufügen)
 
 - Sortierbar via Dragondrop.
+
+## Technik-Einsatz
+
+- MySQL
+- PHP
+- Password-Abfrage: AJAX
+- JS für Tabellen-Dateneingabe (AJAX)
