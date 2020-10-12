@@ -1,6 +1,6 @@
 <template>
     <div>
-        asdf
+        <img src="./logo-proposals/logo.png" alt="">
         <ul>
             <li v-for="(item, index) in list" :key="index">
                 {{item}}
