@@ -1,90 +1,98 @@
 <template>
     <div>
+
         <div class="container">
             <div class="my-4"><img src="/../../logo-proposals/logo.png" alt=""></div>
-            <table class="table" ref="table">
-              <tbody>
-                <template v-for="(item, index) in list">
-                  <tr :key="index" :class="{'tr-running':item.status == 'running','tr-hiatus':item.status == 'hiatus','tr-finished':item.status == 'finished'}">
-                    <td>
-                      <div class="dropdown d-flex justify-content-between">
-                        <div v-if="item.open == false">{{item.seriesname}}</div>
-                        <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie"></div>
-                        <button @click="item.open=!item.open"><icons type="pen"></icons></button>
-                        <div :class="{x:true, open:item.open}"> 
-                            <input class="w-100" type="url" placeholder="URL" v-model="item.url" name="url">
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex justify-content-between">
-                        Season:
-                        <div @click="item.season--">
-                          <icons type="caret_left"></icons>
-                        </div>
-                          {{item.season}}
-                        <div @click="item.season++">
-                          <icons type="caret_right"></icons>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex justify-content-between">
-                        Episode:
-                        <div @click="item.episode--">
-                          <icons type="caret_left"></icons>
-                        </div>
-                          {{item.episode}}
-                        <div @click="item.episode++">
-                          <icons type="caret_right"></icons>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="radio-div">
-                        <div class="radio radio-running radio-inline" title="Running">
-                            <input type="radio" :id="'status-'+index+'-running'" v-model="item.status" value="running" :checked="item.status=='running'">
-                            <label :for="'status-'+index+'-running'"></label>
-                        </div>
-                        <div class="radio radio-hiatus radio-inline" title="Hiatus">
-                            <input type="radio" :id="'status-'+index+'-hiatus'" v-model="item.status" value="hiatus" :checked="item.status=='hiatus'">
-                            <label :for="'status-'+index+'-hiatus'"></label>
-                        </div>
-                        <div class="radio radio-finished radio-inline" title="Finished">
-                            <input type="radio" :id="'status-'+index+'-finished'" v-model="item.status" value="finished" :checked="item.status=='finished'">
-                            <label :for="'status-'+index+'-finished'"></label>
-                        </div>                
-                      </div>                        
-                    </td>
-                  </tr>
-                </template>
-              </tbody>
-            </table>
-            <button @click="list.push( {
-                            'seriesname':'DDDDDDDDD',
-                            'url':'https://youtube.com',
-                            'season':1,
-                            'episode':5,
-                            'status':'finished'
-                        })">+</button>
-            {{list}}
+                <table class="table">
+                    <draggable tag="tbody" v-model="list" draggable="tr">
+                        <template v-for="(item, index) in list">
+                            <tr :key="index" :class="{'tr-running':item.status == 'running','tr-hiatus':item.status == 'hiatus','tr-finished':item.status == 'finished'}">
+                                <td>
+                                    <div class="dropdown d-flex justify-content-between">
+                                        <div v-if="item.open == false">{{item.seriesname}}</div>
+                                        <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie"></div>
+                                        <button @click="item.open=!item.open"><icons type="pen"></icons></button>
+                                        <div :class="{x:true, open:item.open}"> 
+                                            <input class="w-100" type="url" placeholder="URL" v-model="item.url" name="url">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-between">
+                                        Season:
+                                        <div @click="item.season--">
+                                            <icons type="caret_left"></icons>
+                                        </div>
+                                        {{item.season}}
+                                        <div @click="item.season++">
+                                            <icons type="caret_right"></icons>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-between">
+                                        Episode:
+                                        <div @click="item.episode--">
+                                            <icons type="caret_left"></icons>
+                                        </div>
+                                        {{item.episode}}
+                                        <div @click="item.episode++">
+                                            <icons type="caret_right"></icons>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radio-div">
+                                        <div class="radio radio-running radio-inline" title="Running">
+                                            <input type="radio" :id="'status-'+index+'-running'" v-model="item.status" value="running" :checked="item.status=='running'">
+                                            <label :for="'status-'+index+'-running'"></label>
+                                        </div>
+                                        <div class="radio radio-hiatus radio-inline" title="Hiatus">
+                                            <input type="radio" :id="'status-'+index+'-hiatus'" v-model="item.status" value="hiatus" :checked="item.status=='hiatus'">
+                                            <label :for="'status-'+index+'-hiatus'"></label>
+                                        </div>
+                                        <div class="radio radio-finished radio-inline" title="Finished">
+                                            <input type="radio" :id="'status-'+index+'-finished'" v-model="item.status" value="finished" :checked="item.status=='finished'">
+                                            <label :for="'status-'+index+'-finished'"></label>
+                                        </div>                
+                                    </div>                        
+                                </td>
+                            </tr>
+                        </template>
+                    </draggable>
+                </table>
 
+                <button
+                    @click="list.push({
+                        'seriesname':'DDDDDDDDD',
+                        'url':'https://youtube.com',
+                        'season':1,
+                        'episode':5,
+                        'status':'finished'
+                    })"
+                >
+                    +
+                </button>
+
+            <pre>{{list}}</pre>
+            
         </div>
+
     </div>
-        
 </template>
 
 <script>
+import draggable from 'vuedraggable';
 import icons from './icons.vue';
 export default {
     components: {
+        draggable,
         icons,
     },
     data: function() {
         return {
-          example: 'seriesname',
-          list: 
-            [
+            example: 'seriesname',
+            list: [
                 {
                     "seriesname":"AAAAAAAAAA",
                     "url": "https://youtube.com",
@@ -115,65 +123,39 @@ export default {
     computed: {
     },
     mounted () {
-      this.init();
+        console.log('app.vue mounted.');
     },
     methods: {
-      init:function(){
-        var that = this;
-        var sortableTbody = this.$refs.table.getElementsByTagName('tbody')[0];
-        new window.Sortable(sortableTbody, {
-          draggable:'tr',
-          onEnd:function(event){
-            console.log(event);
-            var list = [];
-            for(let i = 0; i < that.list.length; i++){
-              var x = i;
-              if(i == event.oldIndex){x = event.newIndex;}
-              if(i == event.newIndex){x = event.oldIndex;}
-              list.push({...that.list[x]});            
-            } 
-            //that.list = list;
-            that.$set(that, 'list', list);
-            console.log(that.list);
-            that.init();
-  /*          function arraymove(arr, fromIndex, toIndex) {
-              var element = arr[fromIndex];
-              arr.splice(fromIndex, 1);
-              arr.splice(toIndex, 0, element);
-            }
-          arraymove(that.list, event.oldIndex, event.newIndex);
-          console.log(that.list); */
-          }
-        });
-        console.log('app.vue mounted.');
-      }
+        onUpdate: function (event) {
+            //this.list.splice(event.newIndex, 0, this.list.splice(event.oldIndex, 1)[0])
+        }
     },
 }
 </script>
 
 <style lang="scss">
-*{outline:none !important;}
-.dropdown{
-  position: relative;
-  .x{
-      position:absolute;
-      left:0;
-      top:100%;
-      height:0;
-      overflow: hidden;
-  }
-  .x.open, &:hover{
-      height:auto;
-  }
+* {outline:none !important;}
+.dropdown {
+    position: relative;
+    .x {
+        position:absolute;
+        left:0;
+        top:100%;
+        height:0;
+        overflow: hidden;
+    }
+    .x.open {
+        height:auto;
+    }
 }
 
 button {
-  background-color: rgba(255,255,255,0); 
-  border:none;
-  //padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+    background-color: rgba(255,255,255,0); 
+    border:none;
+    //padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .tr-running{background-color: #c6d5ff;}
