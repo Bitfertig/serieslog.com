@@ -1,5 +1,5 @@
 {
-    "name": "seriesmanager",
+    "name": "seriestracker",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -15,6 +15,7 @@
     "dependencies": {
         "bootstrap": "^4.5.2",
         "lodash": "^4.17.20",
+        "sortablejs": "^1.12.0",
         "vue": "^2.6.12"
     },
     "devDependencies": {
