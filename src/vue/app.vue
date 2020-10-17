@@ -3,16 +3,19 @@
     <div class="container">
       <div class="my-4"><img src="/../../logo-proposals/logo.png" alt=""></div>
         <table class="table">
-          <draggable tag="tbody" v-model="list" draggable="tr">
+          <draggable tag="tbody" handle=".handle" v-model="list" draggable="tr">
             <template v-for="(item, index) in list">
               <tr :key="index" :class="{'tr-running':item.status == 'running','tr-hiatus':item.status == 'hiatus','tr-finished':item.status == 'finished', 'd-flex':1}">
                 <td class="d-flex flex-fill">
-                  <div class="drag-padding"><button><icons type="draggable"></icons></button></div>
+                  <div class="drag-padding handle"><button><icons type="draggable"></icons></button></div>
                   <div>
                     <div class="dropdown d-flex justify-content-between">
-                      <div v-if="item.open == false">{{item.seriesname}}</div>
+                      <div v-if="item.open == false">
+                        <a v-if="item.url!=''" :href="item.url">{{item.seriesname}}</a>
+                        <span v-else>{{item.seriesname}}</span>
+                      </div>
                       <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie"></div>
-                      <button @click="item.open=!item.open"><icons type="pen"></icons></button>
+                      <button @click="(e)=>handleClick(e,index)"><icons type="pen"></icons></button><!-- toggle(index);  -->
                       <div :class="{x:true, open:item.open}"> 
                           <input class="w-100" type="url" placeholder="URL" v-model="item.url" name="url">
                       </div>
@@ -36,7 +39,12 @@
                   </div>
                 </td>
                 <td class="d-flex flex-fill justify-content-end">
-                  <div class="note-padding"><button><icons type="note"></icons></button></div>
+                  <div class="position-relative">
+                    <button @click="item.opennote=!item.opennote"><icons type="note"></icons></button>
+                    <div v-if="item.opennote == true">
+                      <textarea class="w-100 position-absolute" :placeholder="item.note" v-model="item.note" name="serie"></textarea>
+                    </div>
+                  </div>
                   <div class="radio-padding">
                     <div class="radio-div">
                       <div class="radio radio-running radio-inline" title="Running">
@@ -53,7 +61,7 @@
                       </div>                
                     </div>                        
                   </div>
-                  <div class="delete-padding"><button><icons type="delete"></icons></button></div>
+                  <div class="delete-padding"  @click="list.splice(index, 1)"><button><icons type="delete"></icons></button></div>
                 </td>
               </tr>
             </template>
@@ -61,13 +69,7 @@
         </table>
 
         <button
-          @click="list.push({
-              'seriesname':'DDDDDDDDD',
-              'url':'https://youtube.com',
-              'season':1,
-              'episode':5,
-              'status':'finished'
-          })"
+          @click="list.push(defaultSeries())"
         >
           +
         </button>
@@ -94,7 +96,9 @@ export default {
                     "season":42,
                     "episode":9337,
                     "status":"running",
-                    "open": false
+                    "open": false,
+                    "note":'',
+                    "opennote": false
                 },
                 {
                     "seriesname":"BBBBBBBBBBB",
@@ -102,7 +106,9 @@ export default {
                     "season":4,
                     "episode":3,
                     "status":"hiatus",
-                    "open": false
+                    "open": false,
+                    "note":'',
+                    "opennote": false
                 },
                 {
                     "seriesname":"CCCCCCCCCC",
@@ -110,7 +116,9 @@ export default {
                     "season":4,
                     "episode":3,
                     "status":"finished",
-                    "open": false
+                    "open": false,
+                    "note":'',
+                    "opennote": false
                 }
             ]
         }
@@ -123,8 +131,40 @@ export default {
     methods: {
         onUpdate: function (event) {
             //this.list.splice(event.newIndex, 0, this.list.splice(event.oldIndex, 1)[0])
+        },
+        defaultSeries: function (){
+          return {
+              'seriesname':'DDDDDDDDD',
+              'url':'https://youtube.com',
+              'season':1,
+              'episode':5,
+              'status':'finished',
+              "note":'',
+              "opennote": false
+          };
+        },
+        toggle: function(index){
+            this.list[index].open = !this.list[index].open;
+        },
+        hide: function (index) {
+            if(this.list[index].open==false){
+                return;
+            }
+            this.list[index].open=true;
+           // for(let item of this.list){
+           // item.open = false;
+            
+          
+        },
+        handleClick: function(e,index) {
+            console.log(arguments, e);
+            if (e.target instanceof HTMLElement && !this.$el.contains(e.target)) {
+                this.$emit("hide"); //fires only on click outside
+                console.log('outside');
+                
+            }
         }
-    },
+    }
 }
 </script>
 
@@ -150,11 +190,21 @@ table .episode{
   text-align: right;
 }
 
+button {
+    background-color: rgba(255,255,255,0); 
+    border:none;
+    //padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
 .dropdown {
     position: relative;
     width: 250px;
+    
     .x {
         position:absolute;
+        z-index: 9999;
         left:0;
         top:100%;
         height:0;
@@ -164,19 +214,18 @@ table .episode{
         height:auto;
     }
 }
-
-button {
-    background-color: rgba(255,255,255,0); 
-    border:none;
-    //padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+td textarea{
+  min-width:150px;
+  margin-left: -15px;
+  z-index: 9999;
 }
 
-.tr-running{background-color: #dbe5ff;}
-.tr-hiatus{background-color: #FFE2D5;}
-.tr-finished{background-color: #dfdfdf;}
+
+
+
+.tr-running{background-color: #dbe5ff; transition: background-color 1s;}
+.tr-hiatus{background-color: #FFE2D5; transition: background-color 1s;}
+.tr-finished{background-color: #dfdfdf; transition: background-color 1s;}
 .tr-running:hover{background-color: #CFDCFF;}
 .tr-hiatus:hover{background-color: #FFDAC9;}
 .tr-finished:hover{background-color: #D5D5D5;}

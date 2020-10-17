@@ -16,6 +16,8 @@
         "bootstrap": "^4.5.2",
         "lodash": "^4.17.20",
         "vue": "^2.6.12",
+        "vue-click-outside": "^1.1.0",
+        "vue-clickaway": "^2.2.2",
         "vuedraggable": "^2.24.2"
     },
     "devDependencies": {
