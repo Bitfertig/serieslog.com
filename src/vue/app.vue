@@ -1,84 +1,79 @@
 <template>
-    <div>
+  <div>
+    <div class="container">
+      <div class="my-4"><img src="/../../logo-proposals/logo.png" alt=""></div>
+        <table class="table">
+          <draggable tag="tbody" v-model="list" draggable="tr">
+            <template v-for="(item, index) in list">
+              <tr :key="index" :class="{'tr-running':item.status == 'running','tr-hiatus':item.status == 'hiatus','tr-finished':item.status == 'finished', 'd-flex':1}">
+                <td class="d-flex flex-fill">
+                  <div class="drag-padding"><button><icons type="draggable"></icons></button></div>
+                  <div>
+                    <div class="dropdown d-flex justify-content-between">
+                      <div v-if="item.open == false">{{item.seriesname}}</div>
+                      <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie"></div>
+                      <button @click="item.open=!item.open"><icons type="pen"></icons></button>
+                      <div :class="{x:true, open:item.open}"> 
+                          <input class="w-100" type="url" placeholder="URL" v-model="item.url" name="url">
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex justify-content-start">
+                      Season:
+                      <div @click="item.season--" class="numChange"><icons type="caret_left"></icons></div>
+                      <div class="season">{{item.season}}</div>
+                      <div @click="item.season++" class="numChange"><icons type="caret_right"></icons></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex justify-content-start">
+                      Episode:
+                      <div @click="item.episode--" class="numChange"><icons type="caret_left"></icons></div>
+                      <div class="episode">{{item.episode}}</div>
+                      <div @click="item.episode++" class="numChange"><icons type="caret_right"></icons></div>
+                    </div>
+                  </div>
+                </td>
+                <td class="d-flex flex-fill justify-content-end">
+                  <div class="note-padding"><button><icons type="note"></icons></button></div>
+                  <div class="radio-padding">
+                    <div class="radio-div">
+                      <div class="radio radio-running radio-inline" title="Running">
+                        <input type="radio" :id="'status-'+index+'-running'" v-model="item.status" value="running" :checked="item.status=='running'">
+                        <label :for="'status-'+index+'-running'"></label>
+                      </div>
+                      <div class="radio radio-hiatus radio-inline" title="Hiatus">
+                        <input type="radio" :id="'status-'+index+'-hiatus'" v-model="item.status" value="hiatus" :checked="item.status=='hiatus'">
+                        <label :for="'status-'+index+'-hiatus'"></label>
+                      </div>
+                      <div class="radio radio-finished radio-inline" title="Finished">
+                        <input type="radio" :id="'status-'+index+'-finished'" v-model="item.status" value="finished" :checked="item.status=='finished'">
+                        <label :for="'status-'+index+'-finished'"></label>
+                      </div>                
+                    </div>                        
+                  </div>
+                  <div class="delete-padding"><button><icons type="delete"></icons></button></div>
+                </td>
+              </tr>
+            </template>
+          </draggable>
+        </table>
 
-        <div class="container">
-            <div class="my-4"><img src="/../../logo-proposals/logo.png" alt=""></div>
-                <table class="table">
-                    <draggable tag="tbody" v-model="list" draggable="tr">
-                        <template v-for="(item, index) in list">
-                            <tr :key="index" :class="{'tr-running':item.status == 'running','tr-hiatus':item.status == 'hiatus','tr-finished':item.status == 'finished'}">
-                                <td>
-                                    <div class="dropdown d-flex justify-content-between">
-                                        <div v-if="item.open == false">{{item.seriesname}}</div>
-                                        <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie"></div>
-                                        <button @click="item.open=!item.open"><icons type="pen"></icons></button>
-                                        <div :class="{x:true, open:item.open}"> 
-                                            <input class="w-100" type="url" placeholder="URL" v-model="item.url" name="url">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex justify-content-between">
-                                        Season:
-                                        <div @click="item.season--">
-                                            <icons type="caret_left"></icons>
-                                        </div>
-                                        {{item.season}}
-                                        <div @click="item.season++">
-                                            <icons type="caret_right"></icons>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex justify-content-between">
-                                        Episode:
-                                        <div @click="item.episode--">
-                                            <icons type="caret_left"></icons>
-                                        </div>
-                                        {{item.episode}}
-                                        <div @click="item.episode++">
-                                            <icons type="caret_right"></icons>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="radio-div">
-                                        <div class="radio radio-running radio-inline" title="Running">
-                                            <input type="radio" :id="'status-'+index+'-running'" v-model="item.status" value="running" :checked="item.status=='running'">
-                                            <label :for="'status-'+index+'-running'"></label>
-                                        </div>
-                                        <div class="radio radio-hiatus radio-inline" title="Hiatus">
-                                            <input type="radio" :id="'status-'+index+'-hiatus'" v-model="item.status" value="hiatus" :checked="item.status=='hiatus'">
-                                            <label :for="'status-'+index+'-hiatus'"></label>
-                                        </div>
-                                        <div class="radio radio-finished radio-inline" title="Finished">
-                                            <input type="radio" :id="'status-'+index+'-finished'" v-model="item.status" value="finished" :checked="item.status=='finished'">
-                                            <label :for="'status-'+index+'-finished'"></label>
-                                        </div>                
-                                    </div>                        
-                                </td>
-                            </tr>
-                        </template>
-                    </draggable>
-                </table>
-
-                <button
-                    @click="list.push({
-                        'seriesname':'DDDDDDDDD',
-                        'url':'https://youtube.com',
-                        'season':1,
-                        'episode':5,
-                        'status':'finished'
-                    })"
-                >
-                    +
-                </button>
-
-            <pre>{{list}}</pre>
-            
-        </div>
-
+        <button
+          @click="list.push({
+              'seriesname':'DDDDDDDDD',
+              'url':'https://youtube.com',
+              'season':1,
+              'episode':5,
+              'status':'finished'
+          })"
+        >
+          +
+        </button>
+      <pre>{{list}}</pre> 
     </div>
+  </div>
 </template>
 
 <script>
@@ -94,10 +89,10 @@ export default {
             example: 'seriesname',
             list: [
                 {
-                    "seriesname":"AAAAAAAAAA",
+                    "seriesname":"The Walking Dead",
                     "url": "https://youtube.com",
-                    "season":1,
-                    "episode":5,
+                    "season":42,
+                    "episode":9337,
                     "status":"running",
                     "open": false
                 },
@@ -135,8 +130,29 @@ export default {
 
 <style lang="scss">
 * {outline:none !important;}
+
+table td{ padding: 0.4rem 0 !important;}
+table td>div{padding:0 0.2rem;}
+table td>div.drag-padding{padding-right:0;}
+table td>div.note-padding{padding-right:0.4rem;}
+table td>div.radio-padding{padding-right:0;}
+table td>div.delete-padding{padding-left:0;}
+
+table .numChange{ padding: 0 5px; }
+table .season{
+  width: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+table .episode{
+  width: 35px;
+  font-weight: bold;
+  text-align: right;
+}
+
 .dropdown {
     position: relative;
+    width: 250px;
     .x {
         position:absolute;
         left:0;
@@ -158,11 +174,16 @@ button {
     display: inline-block;
 }
 
-.tr-running{background-color: #c6d5ff;}
-.tr-hiatus{background-color: #fdc9a7;}
-.tr-finished{background-color: #dbdbdb;}
+.tr-running{background-color: #dbe5ff;}
+.tr-hiatus{background-color: #FFE2D5;}
+.tr-finished{background-color: #dfdfdf;}
+.tr-running:hover{background-color: #CFDCFF;}
+.tr-hiatus:hover{background-color: #FFDAC9;}
+.tr-finished:hover{background-color: #D5D5D5;}
 
-.radio-div{cursor: default; }
+.radio-div{
+  cursor: default; 
+  margin-top: -5px; }
 .radio {
   padding-left: 0; }
   .radio label {
@@ -204,11 +225,6 @@ button {
       transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33); }
   .radio input[type="radio"] {
     opacity: 0; }
-      /* .radio input[type="radio"]:focus + label::before {
-      outline: thin dotted;
-      outline: 5px auto -webkit-focus-ring-color;
-      outline-offset: -2px; 
-      } */
     .radio input[type="radio"]:checked + label::after {
       -webkit-transform: scale(1, 1);
       -ms-transform: scale(1, 1);
@@ -243,19 +259,8 @@ button {
 .radio-finished input[type="radio"]:checked + label::after {
   background-color: #8394a3; }
 
-/* .radio-warning input[type="radio"] + label::after {
-  background-color: #f0ad4e; }
-.radio-warning input[type="radio"]:checked + label::before {
-  border-color: #f0ad4e; }
-.radio-warning input[type="radio"]:checked + label::after {
-  background-color: #f0ad4e; }
-
-.radio-success input[type="radio"] + label::after {
-  background-color: #5cb85c; }
-.radio-success input[type="radio"]:checked + label::before {
-  border-color: #5cb85c; }
-.radio-success input[type="radio"]:checked + label::after {
-  background-color: #5cb85c; } */
-
+svg{fill: #333333;}
+svg#draggable{fill:rgba(0,0,0,0)}
+table tr:hover svg#draggable{fill: #333333;}
 
 </style>
