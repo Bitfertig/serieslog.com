@@ -68,7 +68,7 @@
             </draggable>
         </table>
 
-        <button @click="list.push(defaultSeries())">
+        <button @click="list.push(defaultSeries)">
             +
         </button>
         <pre>{{list}}</pre>
@@ -79,11 +79,11 @@
 <script>
 import draggable from 'vuedraggable';
 import icons from './icons.vue';
-/* import outerclickMixin from './outerclick.js'; */
+import outerclickMixin from './outerclickMixin.js';
 export default {
-    /* mixins: [
+    mixins: [
         outerclickMixin
-    ], */
+    ],
     components: {
         draggable,
         icons,
@@ -123,30 +123,13 @@ export default {
                     "opennote": false
                 }
             ],
-
-            outerclick_references: [],
-            outerclick_callback: null
         }
     },
     computed: {
-    },
-    created() {
-        document.addEventListener('click', this.check_outerclick);
-    },
-    beforeDestroy() {
-        //window.removeEventListener('click', this.close);
-    },
-    mounted () {
-        console.log('app.vue mounted.');
-    },
-    methods: {
-        onUpdate: function (event) {
-            //this.list.splice(event.newIndex, 0, this.list.splice(event.oldIndex, 1)[0])
-        },
         defaultSeries: function (){
             return {
-                'seriesname': 'Seriesname',
-                'url': 'https://youtube.com',
+                'seriesname': '',
+                'url': '',
                 'season': 1,
                 'episode': 1,
                 'status': 'running',
@@ -155,11 +138,24 @@ export default {
                 'opennote': false
             };
         },
+    },
+    created() {
+        
+    },
+    beforeDestroy() {
+        
+    },
+    mounted () {
+        console.log('app.vue mounted.');
+    },
+    methods: {
+        onUpdate: function (event) {
+            //this.list.splice(event.newIndex, 0, this.list.splice(event.oldIndex, 1)[0])
+        },
         toggle: function(index){
             this.list.forEach((item,i)=>{
                 item.open = (index == i) ? !item.open : false;
             });
-            //this.hello()
         },
         close: function(index) {
             console.log('close', arguments);
@@ -168,27 +164,6 @@ export default {
                 item.open = false;
             });
         },
-
-        register_outerclick: function(references, callback){
-            this.outerclick_references = references;
-            this.outerclick_callback = callback;
-        },
-        check_outerclick: function(e) {
-            if ( e.target instanceof HTMLElement ) {
-                let inside_click = false;
-                for (let item of this.outerclick_references) {
-                    let ref = this.$refs[item][0];
-                    if ( ref.contains(e.target) ) { // => not outside click
-                        inside_click = true;
-                    }
-                }
-                if ( !inside_click ) {
-                    if ( typeof this.outerclick_callback == 'function' ) this.outerclick_callback(e);
-                    this.outerclick_references = [];
-                    this.outerclick_callback = null;
-                } 
-            }
-        }
     }
 }
 </script>
