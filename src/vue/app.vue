@@ -79,7 +79,11 @@
 <script>
 import draggable from 'vuedraggable';
 import icons from './icons.vue';
+/* import outerclickMixin from './outerclick.js'; */
 export default {
+    /* mixins: [
+        outerclickMixin
+    ], */
     components: {
         draggable,
         icons,
@@ -119,8 +123,8 @@ export default {
                     "opennote": false
                 }
             ],
-            
-            outerclick_refereces: [],
+
+            outerclick_references: [],
             outerclick_callback: null
         }
     },
@@ -155,6 +159,7 @@ export default {
             this.list.forEach((item,i)=>{
                 item.open = (index == i) ? !item.open : false;
             });
+            //this.hello()
         },
         close: function(index) {
             console.log('close', arguments);
