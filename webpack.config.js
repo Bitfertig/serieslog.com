@@ -51,11 +51,11 @@ const config = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
+      /*   new HtmlWebpackPlugin({
             cache: false,
-            template: './src/index.html',
-            filename: '../index.html',
-        }),
+            template: './src/index.php',
+            filename: '../index.php',
+        }), */
         new VueLoaderPlugin(),
     ]
 };
