@@ -2,10 +2,10 @@
 <div>
     <div class="container">
         <div class="my-4"><img src="/../../logo-proposals/logo.png" alt=""></div>
+
         <div id="login">
-            <input type="text" id="listname" placeholder="Listname">
-            
-            <button @click="lightbox=true"><icons type="pen"></icons></button>
+            <!--input type="text" id="listname" v-model="listname" placeholder="listname"-->
+            <button v-if="listname" @click="lightbox=true"><icons type="pen"></icons></button>
             <div v-if="lightbox == true" class="lb-wrapper">
                 <div @click="lightbox=false" class="lightbox"></div>
                 <div class="lb-form d-flex flex-column">
@@ -14,16 +14,20 @@
                         It will make the list private.
                     </div>
                     <div>Listname:</div>
-                    <input type="text" id="listname" placeholder="listname">
+                    <input type="text" id="listname" v-model="form_listname" placeholder="listname">
                     <div>Password:</div>
-                    <input type="text" id="password" placeholder="password">
+                    <input type="text" id="password" v-model="form_password" placeholder="password">
                     <br>
                     <div>Email is optional, but you can't reset your password without it!</div>
-                    <input type="email" id="email" placeholder="email">
+                    <input type="email" id="email" v-model="form_email" placeholder="email">
+
+                    <button>
+                        <input type="submit" @click="saveListname()" value="Submit">
+                    </button>
                 </div>
             </div>
-
         </div>
+
         <table class="table">
             <draggable tag="tbody" handle=".handle" v-model="list" draggable="tr">
                 <template v-for="(item, index) in list">
@@ -33,30 +37,30 @@
                             <div>
                                 <div class="dropdown d-flex justify-content-between">
                                     <div v-if="item.open == false">
-                                        <a v-if="item.url!=''" :href="item.url">{{item.seriesname}}</a>
+                                        <a v-if="item.url!=''" :href="addScheme(item.url)">{{item.seriesname}}</a>
                                         <span v-else>{{item.seriesname}}</span>
                                     </div>
                                     <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie" :ref="'oc-'+index+'-link'"></div>
                                         <button @click="toggle(index);register_outerclick(['oc-'+index, 'oc-'+index+'-dropdown', 'oc-'+index+'-link'], ()=>close(index))" :ref="'oc-'+index"><icons type="pen"></icons></button><!-- @click="(e)=>handleClick(e,index)" toggle(index);  -->
                                         <div :class="{x:true, open:item.open}" :ref="'oc-'+index+'-dropdown'"> 
-                                            <input class="w-100" type="url" placeholder="URL" v-model="item.url" name="url">
+                                            <input class="w-100" type="url" placeholder="url" v-model="item.url" name="url">
                                         </div>
                                     </div>
                                 </div>
                                     <div>
                                         <div class="d-flex justify-content-start">
                                             Season:
-                                            <div @click="item.season--" class="numChange"><icons type="caret_left"></icons></div>
+                                            <div @click="item.season--" class="numChange pointer"><icons type="caret_left"></icons></div>
                                             <div class="season">{{item.season}}</div>
-                                            <div @click="item.season++" class="numChange"><icons type="caret_right"></icons></div>
+                                            <div @click="item.season++" class="numChange pointer"><icons type="caret_right"></icons></div>
                                         </div>
                                     </div>
                                 <div>
                                 <div class="d-flex justify-content-start">
                                     Episode:
-                                    <div @click="item.episode--" class="numChange"><icons type="caret_left"></icons></div>
+                                    <div @click="item.episode--" class="numChange pointer"><icons type="caret_left"></icons></div>
                                     <div class="episode">{{item.episode}}</div>
-                                    <div @click="item.episode++" class="numChange"><icons type="caret_right"></icons></div>
+                                    <div @click="item.episode++" class="numChange pointer"><icons type="caret_right"></icons></div>
                                 </div>
                             </div>
                         </td>
@@ -114,6 +118,10 @@ export default {
         return {
             example: 'seriesname',
             lightbox: false,
+            listname: window.path,
+            form_listname:'',
+            form_password:'',
+            form_email:'',
             list: [
                 {
                     "seriesname":"The Walking Dead",
@@ -138,8 +146,8 @@ export default {
                 {
                     "seriesname":"CCCCCCCCCC",
                     "url": "https://youtube.com",
-                    "season":4,
-                    "episode":3,
+                    "season":5,
+                    "episode":2,
                     "status":"finished",
                     "open": false,
                     "note":'',
@@ -152,6 +160,7 @@ export default {
     },
     created() {
         this.getList();
+        this.form_listname = JSON.parse(JSON.stringify(window.path));
     },
     beforeDestroy() {
         
@@ -168,6 +177,15 @@ export default {
                     method: 'POST',
                     headers: {'Content-Type' : 'application/json'},
     	            body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response);
+                    if(typeof response !== 'undefined' && typeof response.listname !== 'undefined'){
+                        window.path = response.listname;
+                        history.pushState({}, '', 'list/'+window.path);
+                    }
+                    // TODO: adressleiste anpassen
                 });
             }
         }
@@ -215,6 +233,26 @@ export default {
                 });
             }
             console.log(window.location.href);
+        },
+        addScheme: function(url){
+            if ( !Boolean(url.match(/^https?:\/\//)) ) url = 'http://' + url;
+            return url;
+        },
+        saveListname: function(){
+            console.log(this.listname, this.form_listname, this.form_password, this.form_email);
+            let data = {action:'savelistname', old_listname:this.listname, new_listname:this.form_listname, password:this.form_password, email:this.form_email};
+            fetch('/fetch.php', {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                //this.list = JSON.parse(data.data);
+
+                // TODO: adressleiste anpassen
+            });
         }
     }
 }
