@@ -2,9 +2,10 @@
 session_start(); 
 include 'config.php';
 
+// DB Verbindung
 $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 if ($mysqli->connect_error) {
-    exit;   //die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
+    die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
 }
 
 $json = file_get_contents("php://input");
@@ -25,6 +26,48 @@ if (!empty($json)) {
 	$data = json_decode($json, true);
 }
 
+
+
+// Login
+if ( isset($data['action']) && $data['action'] == 'login' ) {
+    $listname = $data['listname'];
+    $password = $data['password'];
+
+    $sql = "SELECT * FROM listnames WHERE listname = ? LIMIT 1";
+    $result = mysqlibinder($mysqli, $sql, 's', [$listname]);
+    
+    if ( $result->num_rows > 0 ) {
+        $row = $result->fetch_object();
+        $password_hash = $row->password;
+        if ( password_verify($password, $password_hash) ) {
+            $_SESSION['loggedin'] = true;
+        }
+    }
+
+    $response = [
+        'login' => ($_SESSION['loggedin'] ?? false)
+    ];
+
+    echo json_encode($response);
+    exit;
+}
+
+
+
+// Logout
+if ( isset($data['action']) && $data['action'] == 'logout' ) {
+    $_SESSION['loggedin'] = false;
+
+    $response = [
+        'logout' => true
+    ];
+
+    echo json_encode($response);
+    exit;
+}
+
+
+
 if(isset($data['action']) && $data['action'] == 'getlist') {
     $listname = $data['listname'];
     $sql = "SELECT * FROM listnames WHERE listname = ? LIMIT 1";
@@ -34,6 +77,8 @@ if(isset($data['action']) && $data['action'] == 'getlist') {
         echo json_encode($row);
     }
 }
+
+
 
 if(isset($data['action']) && $data['action'] == 'savelist') {
     $listname = $data['listname'];

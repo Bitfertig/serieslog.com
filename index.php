@@ -1,54 +1,53 @@
 <?php 
 session_start(); 
 include 'config.php';
+
+// DB Verbindung herstellen
+$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+if ($mysqli->connect_error) {
+    die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
+}
+
+// Standardwerte setzen
 $listname = $_GET['path'] ?? '';
+$list_exists = false;
+$authorized = false;
+$authorized_required = false;
+
+// Liste auslesen und Standardwerte überschreiben
+if(!empty($listname)) {
+    $sql = "SELECT * FROM listnames WHERE listname = ? LIMIT 1";
+    $stmt = $mysqli->prepare($sql);
+    if ( $stmt ) {
+        $stmt->bind_param('s', $listname); // Fragezeichen (?) ersetzen
+        $stmt->execute(); // SQL-Query ausführen
+        $result = $stmt->get_result();
+    }
+    $row = $result->fetch_assoc();
+    if($row){
+        $list_exists = true;
+        $list = (object) $row;
+        $authorized_required = !empty($list->password);
+        $authorized = ($_SESSION['loggedin'] ?? false);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seriestracker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seriestracker</title>
 </head>
 <body>
-  <div id="app"></div>
-  <?php 
-  if(isset($_SESSION['password_hash'])){
 
-  }
-  $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-  if ($mysqli->connect_error) {
-      exit;//die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
-  }
-  $list = false;
-  if(!empty($listname)) {
-      $sql = "SELECT * FROM listnames WHERE listname = ? LIMIT 1";
-      $stmt = $mysqli->prepare($sql);
-      if ( $stmt ) {
-          $stmt->bind_param('s', $listname); // Fragezeichen (?) ersetzen
-          $stmt->execute(); // SQL-Query ausführen
-          $result = $stmt->get_result();
-      }
-      $row = $result->fetch_assoc();
-      var_export($row);
-      if($row){
-        $list = true;
-      }
-  }
-/*     else{
-    do{
-        $hash = md5();
-        $sql = "INSERT INTO listnames SET name = ?";
-    }
-    while()
-    } */
-
+    <div id="app"></div>
     
-    ?>
     <script>
-        window.list = <?= $list ? 'true' : 'false' ?>;
+        window.list_exists = <?= json_encode($list_exists) ?>;
         window.path = <?= json_encode($listname) ?>;
-        window.authorized = false;
+        window.authorized = <?= json_encode($authorized) ?>;
+        window.authorized_required = <?= json_encode($authorized_required) ?>;
     </script>   
     <script src="/dist/bundle.js"></script>
 </body>

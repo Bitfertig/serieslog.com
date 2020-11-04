@@ -1,11 +1,22 @@
 <template>
 <div>
-    <div class="container">
+    
+    <div v-if="list_exists && !authorized" class="container">
+
+        <h2>Login</h2>
+        <input type="password" v-model="login_password" @keyup.enter="login()">
+        <input type="button" value="Login" @click="login()">
+
+    </div>
+    <div v-else class="container">
         <div class="my-4"><img src="/../../logo-proposals/logo.png" alt=""></div>
 
         <div id="login">
             <!--input type="text" id="listname" v-model="listname" placeholder="listname"-->
+            
             <button v-if="listname" @click="lightbox=true"><icons type="pen"></icons></button>
+            <button v-if="authorized" @click="logout()">Logout</button>
+
             <div v-if="lightbox == true" class="lb-wrapper">
                 <div @click="lightbox=false" class="lightbox"></div>
                 <div class="lb-form d-flex flex-column">
@@ -99,6 +110,7 @@
         </button>
         <pre>{{list}}</pre>
     </div>
+
 </div>
 </template>
 
@@ -117,8 +129,15 @@ export default {
     data: function() {
         return {
             example: 'seriesname',
+
             lightbox: false,
+
+            login_password: '',
+
+            authorized: window.authorized,
+            list_exists: window.list_exists,
             listname: window.path,
+
             form_listname:'',
             form_password:'',
             form_email:'',
@@ -193,6 +212,39 @@ export default {
         }
     },
     methods: {
+        login: function() {
+            var data = { action:'login', listname:this.listname, password:this.login_password };
+            fetch('/fetch.php', {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(response => {
+                if (response.login === true) {
+                    this.login_password = '';
+                    this.authorized = true;
+                }
+                else {
+                    this.login_password = '';
+                }
+            });
+        },
+        logout: function() {
+            var data = { action:'logout'};
+            fetch('/fetch.php', {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                if (response.logout === true) {
+                    this.authorized = false;
+                }
+            });
+        },
         onUpdate: function (event) {
             //this.list.splice(event.newIndex, 0, this.list.splice(event.oldIndex, 1)[0])
         },
