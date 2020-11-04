@@ -1,3 +1,8 @@
+<?php 
+session_start(); 
+include 'config.php';
+$listname = $_GET['path'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,15 +13,14 @@
 <body>
   <div id="app"></div>
   <?php 
-  include 'config.php';
+  if(isset($_SESSION['password_hash'])){
 
-
+  }
   $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
   if ($mysqli->connect_error) {
       exit;//die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
   }
   $list = false;
-  $listname = $_GET['path'] ?? '';
   if(!empty($listname)) {
       $sql = "SELECT * FROM listnames WHERE listname = ? LIMIT 1";
       $stmt = $mysqli->prepare($sql);
@@ -44,6 +48,7 @@
     <script>
         window.list = <?= $list ? 'true' : 'false' ?>;
         window.path = <?= json_encode($listname) ?>;
+        window.authorized = false;
     </script>   
     <script src="/dist/bundle.js"></script>
 </body>

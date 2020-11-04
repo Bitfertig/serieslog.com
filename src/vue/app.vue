@@ -183,6 +183,8 @@ export default {
                     console.log(response);
                     if(typeof response !== 'undefined' && typeof response.listname !== 'undefined'){
                         window.path = response.listname;
+                        this.listname = window.path;
+                        window.list = true;
                         history.pushState({}, '', 'list/'+window.path);
                     }
                     // TODO: adressleiste anpassen

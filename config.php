@@ -1,6 +1,6 @@
 <?php 
 
-$dbhost = 'localhost:3307';
+$dbhost = 'localhost:3306';
 $dbname = 'seriestracker';
 $dbuser = 'root';
-$dbpass = 'root';
+$dbpass = '';

@@ -1,4 +1,5 @@
-<?php
+<?php 
+session_start(); 
 include 'config.php';
 
 $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
