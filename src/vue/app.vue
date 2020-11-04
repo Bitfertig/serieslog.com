@@ -1,7 +1,7 @@
 <template>
 <div>
     
-    <div v-if="list_exists && !authorized" class="container">
+    <div v-if="list_exists && !authorized && authorized_required" class="container">
 
         <h2>Login</h2>
         <input type="password" v-model="login_password" @keyup.enter="login()">
@@ -135,6 +135,7 @@ export default {
             login_password: '',
 
             authorized: window.authorized,
+            authorized_required: window.authorized_required,
             list_exists: window.list_exists,
             listname: window.path,
 
@@ -203,7 +204,7 @@ export default {
                     if(typeof response !== 'undefined' && typeof response.listname !== 'undefined'){
                         window.path = response.listname;
                         this.listname = window.path;
-                        window.list = true;
+                        window.list_exists = true;
                         history.pushState({}, '', 'list/'+window.path);
                     }
                     // TODO: adressleiste anpassen
@@ -273,7 +274,7 @@ export default {
             };
         },
         getList: function(){
-            if(window.list){
+            if(window.list_exists){
                 let data = {listname:window.path, action:'getlist'};
                 fetch('/fetch.php', {
                     method: 'POST',

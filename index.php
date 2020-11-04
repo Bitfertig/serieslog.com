@@ -28,7 +28,7 @@ if(!empty($listname)) {
         $list_exists = true;
         $list = (object) $row;
         $authorized_required = !empty($list->password);
-        $authorized = ($_SESSION['loggedin'] ?? false);
+        $authorized = !!($_SESSION['loggedin_listname'] ?? false) && $_SESSION['loggedin_listname'] == $listname;
     }
 }
 ?>
