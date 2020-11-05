@@ -14,11 +14,11 @@
         <div id="login">
             <!--input type="text" id="listname" v-model="listname" placeholder="listname"-->
             
-            <button v-if="listname" @click="lightbox=true"><icons type="pen"></icons></button>
+            <button v-if="listname" @click="lightbox_open()"><icons type="pen"></icons></button>
             <button v-if="authorized" @click="logout()">Logout</button>
 
             <div v-if="lightbox == true" class="lb-wrapper">
-                <div @click="lightbox=false" class="lightbox"></div>
+                <div @click="lightbox_close()" class="lightbox"></div>
                 <div class="lb-form d-flex flex-column">
                     <div>
                         You can give your list a new name, but it also requires a password. <br>
@@ -98,7 +98,7 @@
                                     </div>                
                                 </div>                        
                             </div>
-                            <div class="delete-padding"  @click="list.splice(index, 1)"><button><icons type="delete"></icons></button></div>
+                            <div class="delete-padding" @click="list.splice(index, 1)"><button><icons type="delete"></icons></button></div>
                         </td>
                     </tr>
                 </template>
@@ -134,10 +134,10 @@ export default {
 
             login_password: '',
 
-            authorized: window.authorized,
-            authorized_required: window.authorized_required,
-            list_exists: window.list_exists,
-            listname: window.path,
+            authorized: '',
+            authorized_required: '',
+            list_exists: '',
+            listname: '',
 
             form_listname:'',
             form_password:'',
@@ -180,6 +180,10 @@ export default {
     },
     created() {
         this.getList();
+        this.authorized = JSON.parse(JSON.stringify(window.authorized));
+        this.authorized_required = JSON.parse(JSON.stringify(window.authorized_required));
+        this.list_exists = JSON.parse(JSON.stringify(window.list_exists));
+        this.listname = JSON.parse(JSON.stringify(window.path));
         this.form_listname = JSON.parse(JSON.stringify(window.path));
     },
     beforeDestroy() {
@@ -192,27 +196,33 @@ export default {
         list: {
             deep: true,
             handler(newValue, oldValue){
-                let data = {action:'savelist', list:newValue, listname:window.path};
+                var that = this;
+                let data = {action:'savelist', list:newValue, listname:this.listname};
                 fetch('/fetch.php', {
                     method: 'POST',
                     headers: {'Content-Type' : 'application/json'},
-    	            body: JSON.stringify(data)
+                    body: JSON.stringify(data)
                 })
                 .then(response => response.json())
                 .then(response => {
                     console.log(response);
                     if(typeof response !== 'undefined' && typeof response.listname !== 'undefined'){
-                        window.path = response.listname;
-                        this.listname = window.path;
-                        window.list_exists = true;
-                        history.pushState({}, '', 'list/'+window.path);
+                        that.listname = response.listname;
+                        that.list_exists = true;
+                        history.pushState({}, '', '/list/'+that.listname);
                     }
-                    // TODO: adressleiste anpassen
                 });
             }
         }
     },
     methods: {
+        lightbox_open: function() {
+            this.form_listname = JSON.parse(JSON.stringify(this.listname));
+            this.lightbox = true;
+        },
+        lightbox_close: function() {
+            this.lightbox = false;
+        },
         login: function() {
             var data = { action:'login', listname:this.listname, password:this.login_password };
             fetch('/fetch.php', {
@@ -279,7 +289,7 @@ export default {
                 fetch('/fetch.php', {
                     method: 'POST',
                     headers: {'Content-Type' : 'application/json'},
-    	            body: JSON.stringify(data)
+                    body: JSON.stringify(data)
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -294,19 +304,29 @@ export default {
             return url;
         },
         saveListname: function(){
-            console.log(this.listname, this.form_listname, this.form_password, this.form_email);
+            var that = this;
             let data = {action:'savelistname', old_listname:this.listname, new_listname:this.form_listname, password:this.form_password, email:this.form_email};
+            console.log('sending',data);
             fetch('/fetch.php', {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
                 body: JSON.stringify(data)
             })
             .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                //this.list = JSON.parse(data.data);
+            .then(response => {
+                console.log('response',response);
+                if ( response.savelistname == true ) {
+                    that.authorized_required = response.authorized_required;
+                    that.authorized = response.authorized;
+                    that.listname = response.listname;
 
-                // TODO: adressleiste anpassen
+                    history.pushState({}, '', '/list/'+response.listname);
+
+                    that.lightbox = false;
+
+                } else {
+                    alert('Failed.');
+                }
             });
         }
     }

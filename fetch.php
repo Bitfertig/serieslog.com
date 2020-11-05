@@ -1,26 +1,13 @@
 <?php 
 session_start(); 
 include 'config.php';
+include 'function.php';
 
-// DB Verbindung
-$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-if ($mysqli->connect_error) {
-    die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
-}
+$mysqli = mysqli_connection($dbhost, $dbuser, $dbpass, $dbname);
 
+
+// Request-Body
 $json = file_get_contents("php://input");
-
-function mysqlibinder($mysqli, $sql, $bindtypes='', $bindparams=[]){
-    $result = false;
-    $stmt = $mysqli->prepare($sql);
-    if ( $stmt ){
-        if(!empty($bindparams)){$stmt->bind_param($bindtypes, ...$bindparams);} // Fragezeichen (?) ersetzen
-        $stmt->execute(); // SQL-Query ausführen
-        $result = $stmt->get_result();
-    }
-    return $result;
-}
-
 $data = '';
 if (!empty($json)) {
 	$data = json_decode($json, true);
@@ -103,46 +90,52 @@ if(isset($data['action']) && $data['action'] == 'savelist') {
 
 
 
-if(isset($data['action']) && $data['action'] == 'savelistname') {
-    //$old_listname = $data['old_listname'];
-    $list = json_encode($data['list']);
+if ( isset($data['action']) && $data['action'] == 'savelistname' ) {
+    $old_listname = $data['old_listname'];
     $new_listname = $data['new_listname'];
     $password = $data['password'];
     $email = $data['email'];
 
+    $new_password_hash = password_hash($password, PASSWORD_BCRYPT);
+
     $sql = "SELECT * FROM listnames WHERE listname = ? LIMIT 1";
-    $stmt = $mysqli->prepare($sql);
-    if ( $stmt ){
-        $stmt->bind_param('s', $new_listname); // Fragezeichen (?) ersetzen
-        $stmt->execute(); // SQL-Query ausführen
-        $result = $stmt->get_result();
-    }
-    if($result->num_rows == 0){
-        $sql = "INSERT listnames SET data = ?, listname = ?, password = ?, email = ?";
-        $stmt = $mysqli->prepare($sql);
-        if ( $stmt ) {
-            $stmt->bind_param('ssss', $list, $listname, $password, $email); // Fragezeichen (?) ersetzen
-            //$stmt->bind_param('s', $listname); // Fragezeichen (?) ersetzen
-            $stmt->execute(); // SQL-Query ausführen
-            //$result = $stmt->get_result();
-        }
-    }else{
-        //failed
-    }
+    $result = mysqlibinder($mysqli, $sql, 's', [$old_listname]);
+    $row = $result->fetch_object();
+    $password_hash = $row->password;
+
+    if ( $result->num_rows && ($password_hash == NULL || password_verify($password, $password_hash)) ) { // Old listname and password is ok
     
-    // check listname if nothing else is set
-    // check listname and pw if pw is set
-    // check listname
+        $sql = "SELECT * FROM listnames WHERE listname = ? LIMIT 1";
+        $result = mysqlibinder($mysqli, $sql, 's', [$new_listname]);
 
-    //this.listname, this.form_listname, this.form_password, this.form_email
+         // Listname is free to use, change listname, password and email
+        if ( $result->num_rows == 0 ) {
+
+            $sql = "UPDATE listnames SET listname = ?, `password` = ?, email = ? WHERE listname = ?";
+            $result = mysqlibinder($mysqli, $sql, 'ssss', [$new_listname, $new_password_hash, $email, $old_listname]);
+
+            if ( !isset($_SESSION['loggedin']) ) $_SESSION['loggedin'] = [];
+            $_SESSION['loggedin'][$new_listname] = [
+                'listname' => $new_listname,
+                'password_hash' => $new_password_hash,
+            ];
+            unset($_SESSION['loggedin'][$old_listname]);
+
+            echo json_encode((object)[
+                'savelistname' => true,
+                'authorized_required' => true,
+                'authorized' => true,
+                'listname' => $new_listname,
+            ]);
+            exit;
+        }
+    }
+
+    echo json_encode((object)[
+        'savelistname' => false,
+    ]);
+    exit;
+
 }
-
-
-
-
-// seiten aufruf
-// listenbearteitung -> zufallsname -> INSERT
-// listennamen/pw bearbeiten -> UPDATE
-
 
 

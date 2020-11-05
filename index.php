@@ -1,12 +1,9 @@
 <?php 
 session_start(); 
 include 'config.php';
+include 'function.php';
 
-// DB Verbindung herstellen
-$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
-if ($mysqli->connect_error) {
-    die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
-}
+$mysqli = mysqli_connection($dbhost, $dbuser, $dbpass, $dbname);
 
 // Standardwerte setzen
 $listname = $_GET['path'] ?? '';
@@ -17,12 +14,7 @@ $authorized_required = false;
 // Liste auslesen und Standardwerte überschreiben
 if(!empty($listname)) {
     $sql = "SELECT * FROM listnames WHERE listname = ? LIMIT 1";
-    $stmt = $mysqli->prepare($sql);
-    if ( $stmt ) {
-        $stmt->bind_param('s', $listname); // Fragezeichen (?) ersetzen
-        $stmt->execute(); // SQL-Query ausführen
-        $result = $stmt->get_result();
-    }
+    $result = mysqlibinder($mysqli, $sql, 's', [$listname]);
     $row = $result->fetch_assoc();
     if($row){
         $list_exists = true;
