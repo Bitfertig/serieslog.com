@@ -232,7 +232,7 @@ export default {
             });
         },
         logout: function() {
-            var data = { action:'logout'};
+            var data = { action:'logout', listname:this.listname };
             fetch('/fetch.php', {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},

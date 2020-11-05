@@ -40,12 +40,16 @@ if ( isset($data['action']) && $data['action'] == 'login' ) {
         $row = $result->fetch_object();
         $password_hash = $row->password;
         if ( password_verify($password, $password_hash) ) {
-            $_SESSION['loggedin_listname'] = $listname;
+            if ( !isset($_SESSION['loggedin']) ) $_SESSION['loggedin'] = [];
+            $_SESSION['loggedin'][$listname] = [
+                'listname' => $listname,
+                'password_hash' => $password_hash
+            ];
         }
     }
 
     $response = [
-        'login' => !!($_SESSION['loggedin_listname'] ?? false)
+        'login' => isset($_SESSION['loggedin'], $_SESSION['loggedin'][$listname])
     ];
 
     echo json_encode($response);
@@ -56,7 +60,8 @@ if ( isset($data['action']) && $data['action'] == 'login' ) {
 
 // Logout
 if ( isset($data['action']) && $data['action'] == 'logout' ) {
-    unset($_SESSION['loggedin_listname']);
+    $listname = $data['listname'];
+    unset($_SESSION['loggedin'][$listname]);
 
     $response = [
         'logout' => true

@@ -28,7 +28,7 @@ if(!empty($listname)) {
         $list_exists = true;
         $list = (object) $row;
         $authorized_required = !empty($list->password);
-        $authorized = !!($_SESSION['loggedin_listname'] ?? false) && $_SESSION['loggedin_listname'] == $listname;
+        $authorized = isset($_SESSION['loggedin'], $_SESSION['loggedin'][$listname]);
     }
 }
 ?>
@@ -50,6 +50,7 @@ if(!empty($listname)) {
         window.authorized_required = <?= json_encode($authorized_required) ?>;
     </script>   
     <script src="/dist/bundle.js"></script>
+    
 </body>
 </html>
 
