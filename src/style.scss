@@ -3,7 +3,32 @@
 
 * {outline:none !important;}
 
-div#login{position: absolute; top:30px; right: 30px;}
+body{background-color: #f8f9f5;}
+
+div.logo{margin:2em 0 8em 0;}
+
+//div#login{position: absolute; top:30px; right: 30px;}
+
+
+div#list_edit_section{
+    border: 3px solid #dfdfdf;
+    border-radius: 7px;
+    //padding: 0.4em 0.4em;
+    margin-bottom:6px;
+}
+div#list_edit_section > div { margin: 0.4em; }
+div#list_edit_section button{background-color:#dfdfdf; }
+button#add{ 
+    background-color:#dfdfdf; 
+    //border-width: 1px;
+    //border-style: solid;
+    //border-color: #333;
+    border-radius: 7px;
+    padding: 0.4em 0.4em;
+    margin-right:0;
+    margin-bottom:6px;
+}
+
 
 table td{ padding: 0.4rem 0 !important;}
 table td>div{padding:0 0.2rem;}
@@ -55,7 +80,7 @@ td textarea{
 }
 
 
-
+tr{height:40px !important;}
 
 .tr-running{background-color: #dbe5ff; transition: background-color 1s;}
 .tr-hiatus{background-color: #FFE2D5; transition: background-color 1s;}
@@ -145,6 +170,10 @@ td textarea{
 svg{fill: #333333;}
 svg#draggable{fill:rgba(0,0,0,0)}
 table tr:hover svg#draggable{fill: #333333;}
+svg#add{ 
+    //transform:rotate(180deg);
+    height:1.5em; width:2em; 
+}
 
 
 //lightbox

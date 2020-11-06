@@ -9,34 +9,46 @@
 
     </div>
     <div v-else class="container">
-        <div class="my-4"><img src="/../../logo-proposals/logo.png" alt=""></div>
+        <div class="logo"><img src="/../../logo-proposals/logo.png" alt=""></div>
 
-        <div id="login">
-            <!--input type="text" id="listname" v-model="listname" placeholder="listname"-->
-            
-            <button v-if="listname" @click="lightbox_open()"><icons type="pen"></icons></button>
-            <button v-if="authorized" @click="logout()">Logout</button>
-
-            <div v-if="lightbox == true" class="lb-wrapper">
-                <div @click="lightbox_close()" class="lightbox"></div>
-                <div class="lb-form d-flex flex-column">
+        <div class="d-flex justify-content-between">
+            <!-- login -->
+            <div id="login">
+                
+                <div id="list_edit_section" class="d-flex justify-content-start">
                     <div>
-                        You can give your list a new name, but it also requires a password. <br>
-                        It will make the list private.
+                        Listname:
+                        <div>{{listname}}</div>
                     </div>
-                    <div>Listname:</div>
-                    <input type="text" id="listname" v-model="form_listname" placeholder="listname">
-                    <div>Password:</div>
-                    <input type="text" id="password" v-model="form_password" placeholder="password">
-                    <br>
-                    <div>Email is optional, but you can't reset your password without it!</div>
-                    <input type="email" id="email" v-model="form_email" placeholder="email">
+                    <button v-if="listname" @click="lightbox_open()"><icons type="pen"></icons></button>
+                    <button v-if="authorized" @click="logout()">Logout</button>
+                </div>
 
-                    <button>
-                        <input type="submit" @click="saveListname()" value="Submit">
-                    </button>
+                <div v-if="lightbox == true" class="lb-wrapper">
+                    <div @click="lightbox_close()" class="lightbox"></div>
+                    <div class="lb-form d-flex flex-column">
+                        <div>
+                            You can give your list a new name, but it also requires a password. <br>
+                            It will make the list private.
+                        </div>
+                        <div>Listname:</div>
+                        <input type="text" id="listname" v-model="form_listname" placeholder="listname">
+                        <div>Password:</div>
+                        <input type="text" id="password" v-model="form_password" placeholder="password">
+                        <br>
+                        <div>Email is optional, but you can't reset your password without it!</div>
+                        <input type="email" id="email" v-model="form_email" placeholder="email">
+
+                        <button>
+                            <input type="submit" @click="saveListname()" value="Submit">
+                        </button>
+                    </div>
                 </div>
             </div>
+            <!-- add button -->
+            <button id="add" @click="list.push(defaultSeries())">
+                <icons type="add"></icons>
+            </button>
         </div>
 
         <table class="table">
@@ -105,9 +117,7 @@
             </draggable>
         </table>
 
-        <button @click="list.push(defaultSeries())">
-            +
-        </button>
+
         <pre>{{list}}</pre>
     </div>
 

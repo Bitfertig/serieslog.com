@@ -52,6 +52,5 @@ if(!empty($listname)) {
 1. startseite -> sobald werteintrag weiterleitung mit js auf neue seite
 2. listenname in url eingetragen ohne existierende liste -> können werte eingetragen werden und für diese seite wird ein eintrag erstellt
     -> das geht weil eine existierende tabelle schon angezeigt werden würde. TODO: private listen kennzeichnen. PW abfrage
-
 */
 ?>
