@@ -1,6 +1,7 @@
 <?php 
 session_start();
-if ( file_exists(__DIR__.'/.env.php') ) include __DIR__.'/.env.php';
+if ( !file_exists(__DIR__.'/.env.php') ) die('No environment settings.');
+include '.env.php';
 include 'config.php';
 include 'function.php';
 
