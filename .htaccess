@@ -1,7 +1,5 @@
 
-
-
-
+# Rewrite all pathes from /list/* to /index.php
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
