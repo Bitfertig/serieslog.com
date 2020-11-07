@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if ( !file_exists(__DIR__.'/.env.php') ) die('No environment settings.');
+if ( !file_exists(__DIR__.'/.env.php') ) die('Error: Missing environment settings.');
 include '.env.php';
 include 'config.php';
 include 'function.php';
@@ -11,7 +11,7 @@ $mysqli = mysqli_connection($dbhost, $dbuser, $dbpass, $dbname);
 // Request-Body
 $json = file_get_contents("php://input");
 $data = '';
-if (!empty($json)) {
+if ( !empty($json) ) {
 	$data = json_decode($json, true);
 }
 
@@ -62,28 +62,28 @@ if ( isset($data['action']) && $data['action'] == 'logout' ) {
 
 
 
-if(isset($data['action']) && $data['action'] == 'getlist') {
+if ( isset($data['action']) && $data['action'] == 'getlist' ) {
     $listname = $data['listname'];
-    $sql = "SELECT * FROM listnames WHERE listname = ? LIMIT 1";
+    $sql = "SELECT `listname`, `data` FROM listnames WHERE listname = ? LIMIT 1";
     $result = mysqlibinder($mysqli, $sql, 's', [$listname]);
     $row = $result->fetch_assoc();
-    if($row){
+    if ( $row ) {
         echo json_encode($row);
     }
 }
 
 
 
-if(isset($data['action']) && $data['action'] == 'savelist') {
+if ( isset($data['action']) && $data['action'] == 'savelist' ) {
     $listname = $data['listname'];
     $list = json_encode($data['list']);
-    if(empty($listname)){
+    if ( empty($listname) ) {
         $listname = md5(time());
         $sql = "INSERT INTO listnames SET listname = ?, data = ?";
         $result = mysqlibinder($mysqli, $sql, 'ss', [$listname, $list]);
         echo json_encode(["listname" => $listname]);
-    }else{
-
+    }
+    else {
         $sql = "UPDATE listnames SET data = ? WHERE listname = ?";
         $result = mysqlibinder($mysqli, $sql, 'ss', [$list, $listname]);
         echo json_encode((object)[]);
