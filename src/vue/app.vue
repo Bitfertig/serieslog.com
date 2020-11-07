@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container" id="app">
 
     <div class="logo d-flex align-items-baseline">
         <icons type="logo"></icons><!-- <img src="/../../logo-proposals/logo.png" alt=""> -->
@@ -7,36 +7,26 @@
             <div class="font_equality_s4em">Serieslog</div>
             <div class="font_equality_s2em">Manage your series.</div>
         </div>
-    </div>
-    
-    <div v-if="list_exists && !authorized && authorized_required">
-
-        <h2>Login</h2>
-        <p>You are about to login into the list "{{ listname }}".</p>
-        <input type="text" name="listname" :value="listname" style="display:none;">
-        <input type="password" v-model="login_password" @keyup.enter="login()">
-        <input type="button" value="Login" @click="login()">
-
-    </div>
-<<<<<<< HEAD
-
-    <div v-else class="container">
-        <div class="logo d-flex align-items-baseline">
-            <icons type="logo"></icons><!-- <img src="/../../logo-proposals/logo.png" alt=""> -->
-            <div class="ml-1 d-flex align-items-start flex-column">
-                <div class="font_equality_s4em">Serieslog</div>
-                <div class="font_equality_s2em">Manage your series.</div>
-            </div>
-            <button v-if="authorized" id="login" class="ml-auto" @click="logout()"><icons type="logout"></icons></button>
+        <button v-if="authorized" id="logout" class="ml-auto" @click="logout()">
+            <icons type="logout"></icons>
+        </button>
+        <div v-if="list_exists && !authorized && authorized_required" class="login_section d-flex ml-auto">
+            <button id="login" @click="login()">
+                <icons type="login"></icons>
+            </button>
+            <input type="text" name="listname" :value="listname" style="display:none;">
+            <input type="password" v-model="login_password" @keyup.enter="login()" class="form-control pw_input" id="exampleInputPassword1" placeholder="Password">
         </div>
-=======
-    <div v-else>
->>>>>>> 8f9dc56ca8ad5ae00c45d77f30fd3a72a39b5b10
+    </div>
 
+    <div v-if="list_exists && !authorized && authorized_required" id="listname_login">
+        <div>Listname:</div>
+        <div>{{listname}}</div>
+    </div>
+    <div v-else>
         <div class="d-flex justify-content-between">
             <!-- login -->
-            <div id="login">
-                
+            <div id="login">      
                 <div v-if="listname != ''" id="list_edit_section" class="d-flex justify-content-start">
                     <div>
                         <div>Listname:</div>
@@ -55,10 +45,10 @@
                         <div>Listname:</div>
                         <input type="text" id="listname" v-model="form_listname" placeholder="listname">
                         <div>Password:</div>
-                        <input type="text" id="password" v-model="form_password" placeholder="password">
+                        <input type="password" id="password" v-model="form_password" placeholder="password">
                         <br>
-                        <div>Email is optional, but you can't reset your password without it!</div>
-                        <input type="email" id="email" v-model="form_email" placeholder="email">
+<!--                         <div>Email is optional, but you can't reset your password without it!</div>
+                        <input type="email" id="email" v-model="form_email" placeholder="email"> -->
 
                         <button>
                             <input type="submit" @click="saveListname()" value="Submit">
@@ -71,6 +61,8 @@
                 <icons type="add"></icons>
             </button>
         </div>
+
+        <div v-if="listname == ''" class="mt-4">Start to manage your series. Click on the big + button to add a new row! <br> It will save automatically. You can also make your list private when you add a password.</div>
 
         <table class="table">
             <draggable tag="tbody" handle=".handle" v-model="list" draggable="tr">
@@ -183,7 +175,6 @@
         <b>Current list:</b>
         <pre>{{list}}</pre>
     </details>
-
 </div>
 </template>
 
@@ -203,7 +194,7 @@ export default {
     },
     data: function() {
         return {
-            debug: true,
+            debug: false,
 
             //example: 'seriesname',
 
@@ -373,6 +364,7 @@ export default {
                 } else {
                     alert('Failed.');
                 }
+                this.form_password = '';
             });
         }
     }

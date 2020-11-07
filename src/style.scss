@@ -10,7 +10,17 @@
 
 * {outline:none !important;}
 
-body{background-color: #f8f9f5;}
+body{background-color: #f8f9f5; }
+
+//sticky footer
+html{min-height: 100vh;}
+body{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+#app{flex: 1;}
+
 
 a{color:#333;}
 
@@ -19,16 +29,27 @@ div.font_equality_s4em{font-family:'equality', Helvetica, sans-serif; font-size:
 div.font_equality_s2em{font-family:Arial, sans-serif; font-size:1.4em; line-height: 0;}
 
 //div#login{position: absolute; top:30px; right: 30px;}
-
-button#login{ background-color:#e2506e; border-radius: 7px;padding: 0.8em;}
+div.login_section {    
+    border: 2px solid #e2506e;
+    border-radius: 7px;
+}
+button#login{ background-color:#e2506e;padding: 0.8em;}
+button#logout{ background-color:#e2506e; border-radius: 7px; padding: 0.8em;}
+input.pw_input{height: auto !important;}
 
 
 div#list_edit_section{ //#dfdfdf
     border: 2px solid #e2506e;
     border-radius: 7px;
-    //padding: 0.4em 0.4em;
     margin-bottom:7px;
 }
+div#listname_login{
+    display: inline-block;
+    border: 2px solid #e2506e;
+    border-radius: 7px; 
+    padding: 0.2em;
+}
+
 div#list_edit_section > div { margin: 0.2em 0.4em; }
 div#list_edit_section button{background-color:#e2506e; }
 button#add{ 
@@ -221,4 +242,25 @@ svg#logout{ height:1.5em; width:2em; }
 //mouseover pointer
 .pointer {
     cursor: pointer;
+}
+
+footer{
+    margin-top: 1px;
+    border-top: 1px solid var(--color-grey-lighter);
+    font-size: 12px;
+    line-height: 14px;
+    padding: 5px 15px;
+    text-align: center;
+}
+footer a{
+    display: inline-block;
+    color: silver;
+    text-decoration: none;
+    padding: 4px 5px;
+    font-size: 11px;
+    line-height: 14px;
+}
+footer a:hover{
+    color: silver;
+    text-decoration: none;
 }

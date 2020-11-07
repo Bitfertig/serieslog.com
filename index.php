@@ -36,6 +36,7 @@ if(!empty($listname)) {
 <body>
 
     <div id="app"></div>
+    <footer class="footer"><a href="http://www.bitfertig.de/impressum">Impress</a></footer>
     
     <script>
         window.list_exists = <?= json_encode($list_exists) ?>;
