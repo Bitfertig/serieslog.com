@@ -57,7 +57,7 @@
                 </div>
             </div>
             <!-- add button -->
-            <button id="add" @click="list.push(defaultSeries())">
+            <button id="add" @click="list.unshift(defaultSeries())">
                 <icons type="add"></icons>
             </button>
         </div>
@@ -73,7 +73,7 @@
                             <div>
                                 <div class="dropdown d-flex justify-content-between">
                                     <div v-if="item.open == false">
-                                        <a v-if="item.url!=''" :href="addScheme(item.url)">{{item.seriesname}}</a>
+                                        <a v-if="item.url!=''" :href="addScheme(item.url)" target="_blank">{{item.seriesname}}</a>
                                         <span v-else>{{item.seriesname}}</span>
                                     </div>
                                     <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie" :ref="'oc-'+index+'-link'"></div>
