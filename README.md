@@ -4,4 +4,8 @@ Never forget last series episode.
 
 ## Version 2
 
-- []  TODO 1
+- [ ] liststyle: button nur anzeigen wenn man auf dem listenelement ist
+- [ ] zahlen: als input feld
+- [ ] impress: blank target
+- [ ] weiteres feld für staffel releasedate
+- [ ] seriename autocomplete
