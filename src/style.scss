@@ -20,6 +20,8 @@ div.font_equality_s2em{font-family:Arial, sans-serif; font-size:1.4em; line-heig
 
 //div#login{position: absolute; top:30px; right: 30px;}
 
+button#login{ background-color:#e2506e; border-radius: 7px;padding: 0.8em;}
+
 
 div#list_edit_section{ //#dfdfdf
     border: 2px solid #e2506e;
@@ -31,9 +33,6 @@ div#list_edit_section > div { margin: 0.2em 0.4em; }
 div#list_edit_section button{background-color:#e2506e; }
 button#add{ 
     background-color:#e2506e; 
-    //border-width: 1px;
-    //border-style: solid;
-    //border-color: #333;
     border-radius: 7px;
     padding: 0.8em;
     margin-right:0;
@@ -181,10 +180,10 @@ tr{height:40px !important;}
 svg{fill: #333333;}
 svg#draggable{fill:rgba(0,0,0,0)}
 table tr:hover svg#draggable{fill: #333333;}
-svg#add{ 
-    //transform:rotate(180deg);
-    height:1.5em; width:2em; 
-}
+svg.background_color{fill: #f8f9f5;}
+svg#add{ height:1.5em; width:2em; }
+svg#login{ height:1.5em; width:2em; }
+svg#logout{ height:1.5em; width:2em; }
 
 
 //lightbox

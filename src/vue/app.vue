@@ -8,6 +8,7 @@
         <input type="button" value="Login" @click="login()">
 
     </div>
+
     <div v-else class="container">
         <div class="logo d-flex align-items-baseline">
             <icons type="logo"></icons><!-- <img src="/../../logo-proposals/logo.png" alt=""> -->
@@ -15,19 +16,19 @@
                 <div class="font_equality_s4em">Serieslog</div>
                 <div class="font_equality_s2em">Manage your series.</div>
             </div>
+            <button v-if="authorized" id="login" class="ml-auto" @click="logout()"><icons type="logout"></icons></button>
         </div>
 
         <div class="d-flex justify-content-between">
             <!-- login -->
             <div id="login">
                 
-                <div id="list_edit_section" class="d-flex justify-content-start">
+                <div v-if="listname != ''" id="list_edit_section" class="d-flex justify-content-start">
                     <div>
-                        Listname:
+                        <div>Listname:</div>
                         <div>{{listname}}</div>
                     </div>
-                    <button v-if="listname" @click="lightbox_open()"><icons type="pen"></icons></button>
-                    <button v-if="authorized" @click="logout()">Logout</button>
+                    <button v-if="listname" @click="lightbox_open()"><icons type="pen_bc"></icons></button>
                 </div>
 
                 <div v-if="lightbox == true" class="lb-wrapper">
