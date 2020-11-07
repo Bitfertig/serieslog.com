@@ -1,5 +1,6 @@
 <?php 
-session_start(); 
+session_start();
+if ( file_exists(__DIR__.'/.env.php') ) include __DIR__.'/.env.php';
 include 'config.php';
 include 'function.php';
 
