@@ -9,9 +9,12 @@
 
     </div>
     <div v-else class="container">
-        <div class="logo d-flex justify-content-start">
+        <div class="logo d-flex align-items-baseline">
             <icons type="logo"></icons><!-- <img src="/../../logo-proposals/logo.png" alt=""> -->
-            <div class="font_equality">erieslog</div>
+            <div class="ml-1 d-flex align-items-start flex-column">
+                <div class="font_equality_s4em">Serieslog</div>
+                <div class="font_equality_s2em">Manage your series.</div>
+            </div>
         </div>
 
         <div class="d-flex justify-content-between">

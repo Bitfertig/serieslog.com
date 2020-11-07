@@ -2,15 +2,10 @@
 @import "~bootstrap/scss/bootstrap";
 @font-face { 
     font-family: 'equality'; 
-    src: url("./font/equality/equality.ttf") format('truetype'),
-         url('./font/equality/equality-webfont.woff2') format('woff2'),
-         url('./font/equality/equality-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+    src: url("./font/equality/equality.ttf") format('truetype');
 }
 /* @font-face {
-    font-family: 'equality';
-    
+    font-family: 'equality'; 
 } */
 
 * {outline:none !important;}
@@ -20,7 +15,8 @@ body{background-color: #f8f9f5;}
 a{color:#333;}
 
 div.logo{margin:2em 0 4em 0;}
-div.font_equality{font-family: 'equality', Helvetica, sans-serif;}
+div.font_equality_s4em{font-family:'equality', Helvetica, sans-serif; font-size:4em; color: #e2506e;}
+div.font_equality_s2em{font-family:Arial, sans-serif; font-size:1.4em; line-height: 0;}
 
 //div#login{position: absolute; top:30px; right: 30px;}
 
