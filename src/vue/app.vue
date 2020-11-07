@@ -1,13 +1,24 @@
 <template>
-<div>
+<div class="container">
+
+    <div class="logo d-flex align-items-baseline">
+        <icons type="logo"></icons><!-- <img src="/../../logo-proposals/logo.png" alt=""> -->
+        <div class="ml-1 d-flex align-items-start flex-column">
+            <div class="font_equality_s4em">Serieslog</div>
+            <div class="font_equality_s2em">Manage your series.</div>
+        </div>
+    </div>
     
-    <div v-if="list_exists && !authorized && authorized_required" class="container">
+    <div v-if="list_exists && !authorized && authorized_required">
 
         <h2>Login</h2>
+        <p>You are about to login into the list "{{ listname }}".</p>
+        <input type="text" name="listname" :value="listname" style="display:none;">
         <input type="password" v-model="login_password" @keyup.enter="login()">
         <input type="button" value="Login" @click="login()">
 
     </div>
+<<<<<<< HEAD
 
     <div v-else class="container">
         <div class="logo d-flex align-items-baseline">
@@ -18,6 +29,9 @@
             </div>
             <button v-if="authorized" id="login" class="ml-auto" @click="logout()"><icons type="logout"></icons></button>
         </div>
+=======
+    <div v-else>
+>>>>>>> 8f9dc56ca8ad5ae00c45d77f30fd3a72a39b5b10
 
         <div class="d-flex justify-content-between">
             <!-- login -->
@@ -124,9 +138,51 @@
             </draggable>
         </table>
 
-
-        <pre>{{list}}</pre>
     </div>
+
+    <details v-if="debug" style="font-size:11px;font-family:sans-serif;border:1px solid red;margin:1px 0;">
+        <summary style="color:red;">Debug</summary>
+        <b>Actions:</b>
+        <div>
+            <input type="button" value="Add example list data" @click="
+                list = [
+                    {
+                        'seriesname':'The Walking Dead',
+                        'url': 'https://youtube.com',
+                        'season':42,
+                        'episode':9337,
+                        'status':'running',
+                        'open': false,
+                        'note':'',
+                        'opennote': false
+                    },
+                    {
+                        'seriesname':'BBBBBBBBBBB',
+                        'url': 'https://youtube.com',
+                        'season':4,
+                        'episode':3,
+                        'status':'hiatus',
+                        'open': false,
+                        'note':'',
+                        'opennote': false
+                    },
+                    {
+                        'seriesname':'CCCCCCCCCC',
+                        'url': 'https://youtube.com',
+                        'season':5,
+                        'episode':2,
+                        'status':'finished',
+                        'open': false,
+                        'note':'',
+                        'opennote': false
+                    }
+                ];
+                "
+            >
+            </div>
+        <b>Current list:</b>
+        <pre>{{list}}</pre>
+    </details>
 
 </div>
 </template>
@@ -134,10 +190,12 @@
 <script>
 import draggable from 'vuedraggable';
 import icons from './icons.vue';
-import outerclickMixin from './outerclickMixin.js';
+//import outerclickMixin from './outerclickMixin.js';
+import outerclick from '@dipser/outerclick.vuejs';
 export default {
     mixins: [
-        outerclickMixin
+        //outerclickMixin
+        outerclick
     ],
     components: {
         draggable,
@@ -145,7 +203,9 @@ export default {
     },
     data: function() {
         return {
-            example: 'seriesname',
+            debug: true,
+
+            //example: 'seriesname',
 
             lightbox: false,
 
@@ -159,38 +219,7 @@ export default {
             form_listname:'',
             form_password:'',
             form_email:'',
-            list: [
-                {
-                    "seriesname":"The Walking Dead",
-                    "url": "https://youtube.com",
-                    "season":42,
-                    "episode":9337,
-                    "status":"running",
-                    "open": false,
-                    "note":'',
-                    "opennote": false
-                },
-                {
-                    "seriesname":"BBBBBBBBBBB",
-                    "url": "https://youtube.com",
-                    "season":4,
-                    "episode":3,
-                    "status":"hiatus",
-                    "open": false,
-                    "note":'',
-                    "opennote": false
-                },
-                {
-                    "seriesname":"CCCCCCCCCC",
-                    "url": "https://youtube.com",
-                    "season":5,
-                    "episode":2,
-                    "status":"finished",
-                    "open": false,
-                    "note":'',
-                    "opennote": false
-                }
-            ],
+            list: [],
         }
     },
     computed: {
@@ -222,7 +251,7 @@ export default {
                 })
                 .then(response => response.json())
                 .then(response => {
-                    console.log(response);
+                    //console.log(response);
                     if(typeof response !== 'undefined' && typeof response.listname !== 'undefined'){
                         that.listname = response.listname;
                         that.list_exists = true;
@@ -282,7 +311,7 @@ export default {
             });
         },
         close: function(index) {
-            console.log('close', arguments);
+            //console.log('close', arguments);
             this.list[index].open = false;
             this.list.forEach((item)=>{
                 item.open = false;
@@ -323,7 +352,7 @@ export default {
         saveListname: function(){
             var that = this;
             let data = {action:'savelistname', old_listname:this.listname, new_listname:this.form_listname, password:this.form_password, email:this.form_email};
-            console.log('sending',data);
+            //console.log('sending',data);
             fetch('/fetch.php', {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
@@ -331,7 +360,7 @@ export default {
             })
             .then(response => response.json())
             .then(response => {
-                console.log('response',response);
+                //console.log('response',response);
                 if ( response.savelistname == true ) {
                     that.authorized_required = response.authorized_required;
                     that.authorized = response.authorized;
