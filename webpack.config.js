@@ -41,7 +41,7 @@ const config = {
                     'css-loader'
                 ]
             },
-             {
+            {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
                 'file-loader',
@@ -51,7 +51,7 @@ const config = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-      /*   new HtmlWebpackPlugin({
+        /* new HtmlWebpackPlugin({
             cache: false,
             template: './src/index.php',
             filename: '../index.php',
