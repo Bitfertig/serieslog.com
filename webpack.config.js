@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+//const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 
@@ -43,18 +43,20 @@ const config = {
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
+                exclude: path.resolve(__dirname, './src/fonts'),
                 use: [
-                'file-loader',
+                    'file-loader',
                 ], 
             },
             {
-                test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
                             name: '[name].[ext]',
-                            outputPath: 'fonts/'
+                            outputPath: '/fonts/', // where it will be copied
+                            publicPath: '/dist/fonts/', // path from browser
                         }
                     }
                 ]
