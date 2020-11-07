@@ -9,7 +9,10 @@
 
     </div>
     <div v-else class="container">
-        <div class="logo"><img src="/../../logo-proposals/logo.png" alt=""></div>
+        <div class="logo d-flex justify-content-start">
+            <icons type="logo"></icons><!-- <img src="/../../logo-proposals/logo.png" alt=""> -->
+            <div class="font_equality">erieslog</div>
+        </div>
 
         <div class="d-flex justify-content-between">
             <!-- login -->
