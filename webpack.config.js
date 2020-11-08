@@ -3,15 +3,16 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 //const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 const config = {
     entry: {
-        main: './src/index.js'
+        'main': './src/index.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: '[name].js',
     },
     module: {
         rules: [
@@ -28,11 +29,12 @@ const config = {
             },
             {
                 test: /\.s[ac]ss$/,
-                use: [
+                /* use: [
                     'style-loader',
                     'css-loader',
                     'sass-loader'
-                ]
+                ] */
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
             },
             {
                 test: /\.css$/,
@@ -71,6 +73,9 @@ const config = {
             filename: '../index.php',
         }), */
         new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+        }),
     ]
 };
 

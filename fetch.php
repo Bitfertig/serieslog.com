@@ -62,13 +62,16 @@ if ( isset($data['action']) && $data['action'] == 'logout' ) {
 
 
 
+// Get list
 if ( isset($data['action']) && $data['action'] == 'getlist' ) {
     $listname = $data['listname'];
+    if ( !access_granted($listname) ) { echo json_encode((object)[]); exit; }
     $sql = "SELECT `listname`, `data` FROM listnames WHERE listname = ? LIMIT 1";
     $result = mysqlibinder($mysqli, $sql, 's', [$listname]);
     $row = $result->fetch_assoc();
     if ( $row ) {
         echo json_encode($row);
+        exit;
     }
 }
 

@@ -13,14 +13,14 @@
 body{background-color: #f8f9f5; }
 
 //sticky footer
-html{min-height: 100vh;}
-body{
+html {min-height: 100vh;}
+body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-}
-#app{flex: 1;}
 
+    & > .main {flex: 1;}
+}
 
 a{color:#333;}
 

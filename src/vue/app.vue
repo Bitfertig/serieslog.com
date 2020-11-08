@@ -1,5 +1,5 @@
 <template>
-<div class="container" id="app">
+<div class="container">
 
     <div class="logo d-flex align-items-baseline">
         <icons type="logo"></icons><!-- <img src="/../../logo-proposals/logo.png" alt=""> -->
@@ -216,12 +216,12 @@ export default {
     computed: {
     },
     created() {
-        this.getList();
         this.authorized = JSON.parse(JSON.stringify(window.authorized));
         this.authorized_required = JSON.parse(JSON.stringify(window.authorized_required));
         this.list_exists = JSON.parse(JSON.stringify(window.list_exists));
         this.listname = JSON.parse(JSON.stringify(window.path));
         this.form_listname = JSON.parse(JSON.stringify(window.path));
+        this.getList();
     },
     beforeDestroy() {
         
@@ -321,20 +321,21 @@ export default {
             };
         },
         getList: function(){
-            if(window.list_exists){
-                let data = {listname:window.path, action:'getlist'};
+            if ( this.list_exists ) {
+                let data = { listname:this.listname, action:'getlist' };
                 fetch('/fetch.php', {
                     method: 'POST',
                     headers: {'Content-Type' : 'application/json'},
                     body: JSON.stringify(data)
                 })
                 .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    this.list = JSON.parse(data.data);
+                .then(response => {
+                    //console.log(response);
+                    if ( response.data ) {
+                        this.list = JSON.parse(response.data);
+                    }
                 });
             }
-            console.log(window.location.href);
         },
         addScheme: function(url){
             if ( !Boolean(url.match(/^https?:\/\//)) ) url = 'http://' + url;

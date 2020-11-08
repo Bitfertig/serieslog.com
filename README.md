@@ -6,6 +6,6 @@ Never forget last series episode.
 
 - [ ] liststyle: button nur anzeigen wenn man auf dem listenelement ist
 - [ ] zahlen: als input feld
-- [ ] impress: blank target
+- [x] impress: blank target
 - [ ] weiteres feld für staffel releasedate
 - [ ] seriename autocomplete

@@ -21,3 +21,9 @@ function mysqlibinder($mysqli, $sql, $bindtypes='', $bindparams=[]){
     }
     return $result;
 }
+
+
+function access_granted($listname) {
+    $access_granted = isset($_SESSION['loggedin'], $_SESSION['loggedin'][$listname]);
+    return $access_granted;
+}
