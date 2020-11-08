@@ -1,6 +1,12 @@
 
-# Rewrite all pathes from /list/* to /index.php
+# Rewrites
 RewriteEngine on
+
+# Rewrite http to https
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
+# Rewrite all pathes from /list/* to /index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^list/(.*)$ /index.php?path=$1 [NC,L,QSA]
