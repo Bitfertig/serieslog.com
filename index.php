@@ -1,5 +1,4 @@
 <?php 
-session_start();
 if ( !file_exists(__DIR__.'/.env.php') ) die('Error: Missing environment settings.');
 include '.env.php';
 include 'config.php';

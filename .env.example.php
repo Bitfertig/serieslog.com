@@ -7,4 +7,5 @@ $_ENV = [
     'DB_DATABASE' => 'serieslog',
     'DB_USERNAME' => '',
     'DB_PASSWORD' => '',
+    'SESSION_LIFETIME' =>  86400 * 30 * 6, // 6 Monate
 ];
