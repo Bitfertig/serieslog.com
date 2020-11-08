@@ -272,6 +272,7 @@ export default {
                 if (response.login === true) {
                     this.login_password = '';
                     this.authorized = true;
+                    this.getList();
                 }
                 else {
                     this.login_password = '';
