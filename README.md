@@ -7,6 +7,8 @@ Never forget your last series episode anymore.
 
 ### Version 2 - Todo
 
+- [ ] delete alert
+- [ ] Responsive
 - [ ] [Amazon PartnerNet](https://youtu.be/FMetgeNyo-M?t=151) für Affiliate-Links
 - [ ] [Web App Manifest](https://web.dev/add-manifest/)
 - [ ] liststyle: button nur anzeigen wenn man auf dem listenelement ist

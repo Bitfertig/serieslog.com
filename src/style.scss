@@ -112,12 +112,14 @@ td textarea{
 
 
 tr{height:40px !important;}
-
-.tr-running{background-color: #dbe5ff; transition: background-color 1s;}
-.tr-hiatus{background-color: #FFE2D5; transition: background-color 1s;}
-.tr-finished{background-color: #dfdfdf; transition: background-color 1s;}
-.tr-running:hover{background-color: #CFDCFF;}
-.tr-hiatus:hover{background-color: #FFDAC9;}
+// blue: dbe5ff  cedce7  dde7ef
+//orange:  FFE2D5  F9E4DC   F8DED5
+//grey:   dfdfdf
+.tr-running{background-color: #dde7ef; transition: background-color 0.8s;}
+.tr-hiatus{background-color: #F9E4DC; transition: background-color 0.8s;}
+.tr-finished{background-color: #e0e0e0; transition: background-color 0.8s;}
+.tr-running:hover{background-color: #CDDCE9;}
+.tr-hiatus:hover{background-color: #F3D7CC;}
 .tr-finished:hover{background-color: #D5D5D5;}
 
 .radio-div{
