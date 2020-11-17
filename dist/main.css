@@ -7160,9 +7160,6 @@ a.text-dark:hover, a.text-dark:focus {
   font-family: 'equality';
   src: url(/dist/fonts/equality.ttf) format("truetype"); }
 
-/* @font-face {
-    font-family: 'equality'; 
-} */
 * {
   outline: none !important; }
 
