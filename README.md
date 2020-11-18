@@ -10,11 +10,12 @@ Never forget your last series episode anymore.
 - [ ] delete alert
 - [ ] Responsive
 - [ ] [Amazon PartnerNet](https://youtu.be/FMetgeNyo-M?t=151) für Affiliate-Links
-- [ ] [Web App Manifest](https://web.dev/add-manifest/)
 - [ ] liststyle: button nur anzeigen wenn man auf dem listenelement ist
 - [ ] zahlen: als input feld
 - [ ] weiteres feld für staffel releasedate
-- [ ] seriename autocomplete
+- [ ] Autocomplete für Seriennamen
+- [ ] "Web App Manifest" Icons hinzufügen
+- [x] "[Web App Manifest](https://web.dev/add-manifest/)"
 - [x] impress: blank target
 
 ### Version 1 - Release 2020-11-07
