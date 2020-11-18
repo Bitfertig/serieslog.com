@@ -1,0 +1,10 @@
+{
+    "short_name": "Serieslog",
+    "name": "Serieslog - Manager your series.",
+    "description": "Manage your series.",
+    "start_url": "/?source=pwa",
+    "background_color": "#e2506e",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#e2506e"
+}
