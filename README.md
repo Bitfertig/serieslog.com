@@ -8,11 +8,11 @@ Never forget your last series episode anymore.
 ### Version 2 - Todo
 
 - [ ] delete alert
-- [ ] Responsive
+- [ ] Responsive Layout
 - [ ] [Amazon PartnerNet](https://youtu.be/FMetgeNyo-M?t=151) für Affiliate-Links
 - [ ] liststyle: button nur anzeigen wenn man auf dem listenelement ist
-- [ ] zahlen: als input feld
-- [ ] weiteres feld für staffel releasedate
+- [ ] Zahlen als input-Feld
+- [ ] Weiteres Feld für Staffel-Releasedate
 - [ ] Autocomplete für Seriennamen
 - [ ] "Web App Manifest" Icons hinzufügen
 - [x] "[Web App Manifest](https://web.dev/add-manifest/)"
