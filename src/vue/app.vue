@@ -70,28 +70,28 @@
                     <tr :key="index" :class="{'tr-running':item.status == 'running','tr-hiatus':item.status == 'hiatus','tr-finished':item.status == 'finished', 'd-flex':1}">
                         <td class="d-flex flex-fill">
                             <div class="drag-padding handle"><button><icons type="draggable"></icons></button></div>
-                            <div>
+                            <div class="svg_hover">
                                 <div class="dropdown d-flex justify-content-between">
                                     <div v-if="item.open == false">
                                         <a v-if="item.url!=''" :href="addScheme(item.url)" target="_blank">{{item.seriesname}}</a>
                                         <span v-else>{{item.seriesname}}</span>
                                     </div>
                                     <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie" :ref="'oc-'+index+'-link'"></div>
-                                        <button @click="toggle(index);register_outerclick(['oc-'+index, 'oc-'+index+'-dropdown', 'oc-'+index+'-link'], ()=>close(index))" :ref="'oc-'+index"><icons type="pen"></icons></button><!-- @click="(e)=>handleClick(e,index)" toggle(index);  -->
-                                        <div :class="{x:true, open:item.open}" :ref="'oc-'+index+'-dropdown'"> 
-                                            <input class="w-100" type="url" placeholder="url" v-model="item.url" name="url">
-                                        </div>
+                                    <button @click="toggle(index);register_outerclick(['oc-'+index, 'oc-'+index+'-dropdown', 'oc-'+index+'-link'], ()=>close(index))" :ref="'oc-'+index"><icons type="pen"></icons></button><!-- @click="(e)=>handleClick(e,index)" toggle(index);  -->
+                                    <div :class="{x:true, open:item.open}" :ref="'oc-'+index+'-dropdown'"> 
+                                        <input class="w-100" type="url" placeholder="url" v-model="item.url" name="url">
                                     </div>
                                 </div>
-                                    <div>
-                                        <div class="d-flex justify-content-start">
-                                            Season:
-                                            <div @click="item.season--" class="numChange pointer"><icons type="caret_left"></icons></div>
-                                            <div class="season">{{item.season}}</div>
-                                            <div @click="item.season++" class="numChange pointer"><icons type="caret_right"></icons></div>
-                                        </div>
-                                    </div>
-                                <div>
+                            </div>
+                            <div class="svg_hover">
+                                <div class="d-flex justify-content-start">
+                                    Season:
+                                    <div @click="item.season--" class="numChange pointer"><icons type="caret_left"></icons></div>
+                                    <div class="season">{{item.season}}</div>
+                                    <div @click="item.season++" class="numChange pointer"><icons type="caret_right"></icons></div>
+                                </div>
+                            </div>
+                            <div class="svg_hover">
                                 <div class="d-flex justify-content-start">
                                     Episode:
                                     <div @click="item.episode--" class="numChange pointer"><icons type="caret_left"></icons></div>

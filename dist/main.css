@@ -7211,7 +7211,7 @@ input.pw_input {
 div#list_edit_section {
   border: 2px solid #e2506e;
   border-radius: 7px;
-  margin-bottom: 7px; }
+  margin-bottom: 15px; }
 
 div#listname_login {
   display: inline-block;
@@ -7220,17 +7220,29 @@ div#listname_login {
   padding: 0.2em; }
 
 div#list_edit_section > div {
-  margin: 0.2em 0.4em; }
+  margin: 0.2em 0.4em;
+  transition: width 5s; }
 
 div#list_edit_section button {
-  background-color: #e2506e; }
+  background-color: #e2506e;
+  width: 0; }
+
+div#list_edit_section button {
+  visibility: hidden; }
+
+div#list_edit_section:hover button {
+  visibility: visible; }
+
+div#list_edit_section:hover button {
+  width: 31px;
+  transition: width 0.2s; }
 
 button#add {
   background-color: #e2506e;
   border-radius: 7px;
   padding: 0.8em;
   margin-right: 0;
-  margin-bottom: 6px; }
+  margin-bottom: 15px; }
 
 table td {
   padding: 0.4rem 0 !important; }
@@ -7428,6 +7440,12 @@ svg#login {
 svg#logout {
   height: 1.5em;
   width: 2em; }
+
+.svg_hover svg {
+  fill: rgba(0, 0, 0, 0); }
+
+.svg_hover:hover svg {
+  fill: #333333; }
 
 .lb-wrapper {
   z-index: 998;
