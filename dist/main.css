@@ -7235,7 +7235,7 @@ div#list_edit_section:hover button {
 
 div#list_edit_section:hover button {
   width: 31px;
-  transition: width 0.2s; }
+  transition: width 0.1s; }
 
 button#add {
   background-color: #e2506e;
