@@ -8,6 +8,7 @@ Never forget your last series episode anymore.
 ### Version 2 - Todo
 
 - [ ] delete alert
+- [ ] slider counter
 - [ ] Responsive Layout
 - [ ] [Amazon PartnerNet](https://youtu.be/FMetgeNyo-M?t=151) für Affiliate-Links
 - [ ] Zahlen als input-Feld

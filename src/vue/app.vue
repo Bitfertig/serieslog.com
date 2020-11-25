@@ -99,6 +99,19 @@
                                     <div @click="item.episode++" class="numChange pointer"><icons type="caret_right"></icons></div>
                                 </div>
                             </div>
+                            <div class="slider_parent">
+                                Episode:
+                                <div class="prehover">
+                                    1234
+                                    <div class="slider">
+                                        5678
+                                    </div>
+                                    <div class="slider_line slider_middle"></div>
+                                    <div class="slider_line slider_left"></div>
+                                    <div class="slider_line slider_right"> </div>
+                                    <div class="slider_line slider_circle"></div>
+                                </div>
+                            </div>
                         </td>
                         <td class="d-flex flex-fill justify-content-end">
                             <div class="position-relative">

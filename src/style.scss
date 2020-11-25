@@ -5,9 +5,14 @@
     src: url('./fonts/equality/equality.ttf') format('truetype');
 }
 
+//color
+$bg_color: #f8f9f5;
+$main_color: #e2506e;
+
+
 * {outline:none !important;}
 
-body{background-color: #f8f9f5; }
+body{background-color: $bg_color; }
 
 //sticky footer
 html {min-height: 100vh;}
@@ -22,39 +27,39 @@ body {
 a{color:#333;}
 
 div.logo{margin:2em 0 4em 0;}
-div.font_equality_s4em{font-family:'equality', Helvetica, sans-serif; font-size:4em; color: #e2506e;}
+div.font_equality_s4em{font-family:'equality', Helvetica, sans-serif; font-size:4em; color: $main_color;}
 div.font_equality_s2em{font-family:Arial, sans-serif; font-size:1.4em; line-height: 0;}
 
 //div#login{position: absolute; top:30px; right: 30px;}
 div.login_section {    
-    border: 2px solid #e2506e;
+    border: 2px solid $main_color;
     border-radius: 7px;
 }
-button#login{ background-color:#e2506e;padding: 0.8em;}
-button#logout{ background-color:#e2506e; border-radius: 7px; padding: 0.8em;}
+button#login{ background-color:$main_color;padding: 0.8em;}
+button#logout{ background-color:$main_color; border-radius: 7px; padding: 0.8em;}
 input.pw_input{height: auto !important;}
 
 
 div#list_edit_section{ //#dfdfdf
-    border: 2px solid #e2506e;
+    border: 2px solid $main_color;
     border-radius: 7px;
     margin-bottom:15px;
 }
 div#listname_login{
     display: inline-block;
-    border: 2px solid #e2506e;
+    border: 2px solid $main_color;
     border-radius: 7px; 
     padding: 0.2em;
 }
 
 div#list_edit_section > div { margin: 0.2em 0.4em; transition: width 5s;}
-div#list_edit_section button{background-color:#e2506e; width:0;}
+div#list_edit_section button{background-color:$main_color; width:0;}
 div#list_edit_section button{visibility: hidden;}
 div#list_edit_section:hover button{visibility: visible;}
 div#list_edit_section:hover button{width:31px;transition: width 0.1s;}
 
 button#add{ 
-    background-color:#e2506e;
+    background-color:$main_color;
     border-radius: 7px;
     padding: 0.8em;
     margin-right:0;
@@ -204,7 +209,7 @@ tr{height:40px !important;}
 svg{fill: #333333;}
 svg#draggable{fill:rgba(0,0,0,0)}
 table tr:hover svg#draggable{fill: #333333;}
-svg.background_color{fill: #f8f9f5;}
+svg.background_color{fill: $bg_color;}
 svg#add{ height:1.5em; width:2em; }
 svg#login{ height:1.5em; width:2em; }
 svg#logout{ height:1.5em; width:2em; }
@@ -243,6 +248,74 @@ svg#logout{ height:1.5em; width:2em; }
     background: #FFF;
     padding: 20px;
 }
+
+
+//slider
+.slider_parent{
+    display: inline-block;
+    position: relative;
+    top: 0;
+}
+.prehover{
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    width: 50px;
+}
+.slider{
+    position: absolute;
+    visibility: hidden;
+}
+.prehover:hover .slider{
+    position: absolute;
+    visibility: visible;
+    top: 0;
+    height: 100%;
+    width: 124px;
+    left:-75%;
+    text-align: center;
+}
+.slider_line{
+    position: absolute;
+    visibility: hidden;
+    top:0;
+}
+.prehover:hover .slider_middle{
+    visibility: visible;
+    top: 0px;
+    height: 100%;
+    width: 100px;
+    left:-50%;
+    background-color: $bg_color;
+}
+.prehover:hover .slider_left{
+    visibility: visible;
+    top: 0px;
+    height: 24px;
+    width: 24px;
+    left:-75%;
+    background-color: $bg_color;
+    border-radius: 50%;
+}
+.prehover:hover .slider_right{
+    visibility: visible;
+    top: 0px;
+    height: 24px;
+    width: 24px;
+    right:-75%;
+    background-color: $bg_color;
+    border-radius: 50%;
+}
+.prehover:hover .slider_circle{
+    visibility: visible;
+    top: 0px;
+    height: 24px;
+    width: 24px;
+    background-color: plum;
+    border-radius: 50%;
+  }
+
+
 
 
 //mouseover pointer
