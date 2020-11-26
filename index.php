@@ -37,7 +37,7 @@ if ( !empty($listname) ) {
     <title>Serieslog</title>
     <meta name="description" content="Manage series and never forget your last episode.">
     <meta name="keywords" content="serieslog, series, episodes, tracker, logger, log, manager">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="<?= $maincss.'?t='.filemtime(__DIR__.$maincss) ?>">
     <link rel="manifest" href="/manifest.webmanifest">
 </head>
