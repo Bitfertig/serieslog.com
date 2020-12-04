@@ -27,3 +27,35 @@ function access_granted($listname) {
     $access_granted = isset($_SESSION['loggedin'], $_SESSION['loggedin'][$listname]);
     return $access_granted;
 }
+
+
+function getSeriesByTitle($title) {
+    global $mysqli;
+
+    // Try to select
+    $sql = "SELECT * FROM omdb WHERE title LIKE ? LIMIT 1";
+    $result = mysqlibinder($mysqli, $sql, 's', ['%'.$title.'%']);
+    $row = $result->fetch_object();
+    #echo '<pre>';var_export($row);echo '</pre>';exit;
+
+    // If no result
+    if ( $result && !$result->num_rows ) {
+        // Curl
+        $url = 'http://www.omdbapi.com/?apikey='.$_ENV['OMDB_APIKEY'].'&type=series&t='.$title;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        #echo '<pre>';var_export($response);echo '</pre>';exit;
+
+        $json = json_decode($response);
+        if ( $json && $json->imdbID ) {
+            $sql = "INSERT INTO omdb SET imdb_id = ?, title = ?, `data` = ?";
+            $result = mysqlibinder($mysqli, $sql, 'sss', [$json->imdbID, $json->Title, $response]);
+        }
+    } else {
+        $json = json_decode($row->data);
+    }
+
+    return $json;
+}
