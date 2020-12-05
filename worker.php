@@ -5,7 +5,7 @@ include '.env.php';
 include 'config.php';
 include 'function.php';
 
-if ( isset($_GET['run']) && $_GET['run'] == $_ENV['WORKER_KEY'] ) exit;
+if ( !isset($_GET['run']) || $_GET['run'] != $_ENV['WORKER_KEY'] ) exit;
 
 $mysqli = mysqli_connection($dbhost, $dbuser, $dbpass, $dbname);
 
