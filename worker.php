@@ -14,10 +14,24 @@ $mysqli = mysqli_connection($dbhost, $dbuser, $dbpass, $dbname);
 
 
 
-$titles = ['Mandal'];
+$titles = [
+    'The Flash',
+    'Arrow',
+    'Krypton', 
+    'The Mandalorian', 
+    'Young Sheldon', 
+    'The Walking Dead', 
+    'Vikings', 
+    'Marco Polo', 
+    'South Park', 
+    'Better Call Saul', 
+    'True Detective',
+];
 foreach ($titles as $title) {
     
     $series = getSeriesByTitle($title);
+    var_export($series);
+    echo '<hr>';
 
 }
 

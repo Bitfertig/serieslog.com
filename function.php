@@ -38,10 +38,10 @@ function getSeriesByTitle($title) {
     $row = $result->fetch_object();
     #echo '<pre>';var_export($row);echo '</pre>';exit;
 
-    // If no result
+    // If no database result
     if ( $result && !$result->num_rows ) {
         // Curl
-        $url = 'http://www.omdbapi.com/?apikey='.$_ENV['OMDB_APIKEY'].'&type=series&t='.$title;
+        $url = 'http://www.omdbapi.com/?apikey='.$_ENV['OMDB_APIKEY'].'&type=series&t='.urlencode($title);
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
@@ -49,7 +49,7 @@ function getSeriesByTitle($title) {
         #echo '<pre>';var_export($response);echo '</pre>';exit;
 
         $json = json_decode($response);
-        if ( $json && $json->imdbID ) {
+        if ( $json && isset($json->imdbID) ) {
             $sql = "INSERT INTO omdb SET imdb_id = ?, title = ?, `data` = ?";
             $result = mysqlibinder($mysqli, $sql, 'sss', [$json->imdbID, $json->Title, $response]);
         }
@@ -57,5 +57,18 @@ function getSeriesByTitle($title) {
         $json = json_decode($row->data);
     }
 
-    return $json;
+    return ( $json && isset($json->imdbID) ) ? $json : false;
+}
+
+
+
+function getRandomSeries(int $limit = 1) {
+    global $mysqli;
+    $sql = "SELECT * FROM omdb ORDER BY RAND() LIMIT ".$limit;
+    $result = mysqlibinder($mysqli, $sql);
+    $series = [];
+    while( $row = $result->fetch_object() ) {
+        $series[] = json_decode($row->data);
+    }
+    return $series;
 }

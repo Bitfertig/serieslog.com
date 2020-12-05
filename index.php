@@ -46,6 +46,18 @@ if ( !empty($listname) ) {
     <div class="main">
         <div id="app"></div>
     </div>
+    <div class="container">
+        In the spotlight:<br>
+        <div class="row">
+            <?php $series = getRandomSeries(6); foreach ( $series as $s ) { ?>
+                <div class="col-2">
+                    <img src="<?= $s->Poster ?>" alt="<?= htmlspecialchars($s->Title) ?>" style="max-height:150px;">
+                    <div><strong><?= $s->Title ?></strong></div>
+                    <div class="text-muted small"><?= $s->Plot ?></div>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
     <footer class="footer"><a href="http://www.bitfertig.de/impressum" target="_blank">Impress</a></footer>
     
     <script>
