@@ -10,7 +10,7 @@
     "orientation": "any",
     "icons": [
         {
-            "src": "/assets/webmanifest/icon-192x192.png",
+            "src": "/assets/webmanifest/apple-icon-192x192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
