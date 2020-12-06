@@ -6,5 +6,12 @@
     "background_color": "#e2506e",
     "display": "standalone",
     "scope": "/",
-    "theme_color": "#e2506e"
+    "theme_color": "#e2506e",
+    "icons": [
+        {
+            "src": "serieslog-1000x1000.png",
+            "sizes": "1000x1000",
+            "type": "image/png"
+        }
+    ]
 }

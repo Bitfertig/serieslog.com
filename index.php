@@ -60,7 +60,7 @@ if ( !empty($listname) ) {
     <footer class="footer">
         <a href="https://www.serieslog.com">www.serieslog.com</a>
         <a href="http://www.bitfertig.de/impressum" target="_blank">Impress</a>
-        <a href="https://www.serieslog.com/seriessearch.php" target="_blank">Series search</a>
+        <a href="/seriessearch.php" target="_blank">Series search</a>
     </footer>
     
     <script>
