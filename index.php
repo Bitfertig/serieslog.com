@@ -39,6 +39,7 @@ if ( !empty($listname) ) {
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="<?= $maincss.'?t='.filemtime(__DIR__.$maincss) ?>">
     <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" sizes="512x512" href="/assets/webmanifest/icon-512x512.png">
 </head>
 <body>
 
