@@ -26,6 +26,16 @@ $titles = [
     'South Park', 
     'Better Call Saul', 
     'True Detective',
+    'Motherland: Fort Salem',
+    'Game of Thrones',
+    'Prison Break',
+    'Futurama',
+    'Two and a half men',
+    'Family Guy',
+    'The Big Bang Theory',
+    'Shameless',
+    'Sons of Anarchy',
+    'Naruto',
 ];
 foreach ($titles as $title) {
     
