@@ -1,10 +1,8 @@
 <?php 
 if ( !file_exists(__DIR__.'/.env.php') ) die('Error: Missing environment settings.');
 include '.env.php';
-include 'config.php';
 include 'function.php';
-
-$mysqli = mysqli_connection($dbhost, $dbuser, $dbpass, $dbname);
+include 'setup.php';
 
 
 // Request-Body

@@ -1,10 +1,9 @@
 <?php 
 if ( !file_exists(__DIR__.'/.env.php') ) die('Error: Missing environment settings.');
 include '.env.php';
-include 'config.php';
 include 'function.php';
+include 'setup.php';
 
-$mysqli = mysqli_connection($dbhost, $dbuser, $dbpass, $dbname);
 
 // Generated files
 $mainjs = '/dist/main.js';
@@ -58,7 +57,11 @@ if ( !empty($listname) ) {
             <?php } ?>
         </div>
     </div>
-    <footer class="footer"><a href="http://www.bitfertig.de/impressum" target="_blank">Impress</a></footer>
+    <footer class="footer">
+        <a href="https://www.serieslog.com">www.serieslog.com</a>
+        <a href="http://www.bitfertig.de/impressum" target="_blank">Impress</a>
+        <a href="https://www.serieslog.com/seriessearch" target="_blank">Series search</a>
+    </footer>
     
     <script>
         window.list_exists = <?= json_encode($list_exists) ?>;
@@ -67,6 +70,15 @@ if ( !empty($listname) ) {
         window.authorized_required = <?= json_encode($authorized_required) ?>;
     </script>   
     <script src="<?= $mainjs.'?t='.filemtime(__DIR__.$mainjs) ?>"></script>
+
+<datalist id="datalist_titles">
+<?php
+$sql = 'SELECT * FROM omdb ORDER BY title ASC';
+$result = mysqlibinder($mysqli, $sql, '', []);
+?>
+<?php while ($row = $result->fetch_object()) { ?><option><?= $row->title ?></option><?php } ?>
+</datalist>
+
     
 </body>
 </html>

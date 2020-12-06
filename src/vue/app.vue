@@ -76,7 +76,7 @@
                                         <a v-if="item.url!=''" :href="addScheme(item.url)" target="_blank">{{item.seriesname}}</a>
                                         <span v-else>{{item.seriesname}}</span>
                                     </div>
-                                    <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie" :ref="'oc-'+index+'-link'"></div>
+                                    <div v-if="item.open == true"><input class="w-100" type="text" :placeholder="item.seriesname" v-model="item.seriesname" name="serie" :ref="'oc-'+index+'-link'" list="datalist_titles"></div>
                                     <button @click="toggle(index);register_outerclick(['oc-'+index, 'oc-'+index+'-dropdown', 'oc-'+index+'-link'], ()=>close(index))" :ref="'oc-'+index"><icons type="pen"></icons></button><!-- @click="(e)=>handleClick(e,index)" toggle(index);  -->
                                     <div :class="{x:true, open:item.open}" :ref="'oc-'+index+'-dropdown'"> 
                                         <input class="w-100" type="url" placeholder="url" v-model="item.url" name="url">
