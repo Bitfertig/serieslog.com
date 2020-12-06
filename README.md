@@ -12,6 +12,7 @@ Never forget your last series episode anymore.
 - [ ] [Amazon PartnerNet](https://youtu.be/FMetgeNyo-M?t=151) für Affiliate-Links
 - [ ] Zahlen als input-Feld
 - [ ] "Web App Manifest" Icons hinzufügen
+- [ ] [TV Parental Guidelines](https://en.wikipedia.org/wiki/TV_Parental_Guidelines)
 - [ ] Weiteres Feld für Staffel-Releasedate
 - [x] Serien-Datenbank-Tabelle
 - [x] Autocomplete für Seriennamen
