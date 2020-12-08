@@ -15,6 +15,7 @@ Never forget your last series episode anymore.
 - [ ] Weiteres Feld für Staffel-Releasedate
 - [ ] Autocomplete für Seriennamen
 - [ ] "Web App Manifest" Icons hinzufügen
+- [ ] Startsetie Eingabefeld zum Weiterleiten auf eigene Liste
 - [x] liststyle: button nur anzeigen wenn man auf dem listenelement ist
 - [x] "[Web App Manifest](https://web.dev/add-manifest/)"
 - [x] impress: blank target

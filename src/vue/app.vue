@@ -99,17 +99,16 @@
                                     <div @click="item.episode++" class="numChange pointer"><icons type="caret_right"></icons></div>
                                 </div>
                             </div>
+                            <div class="category">Episode:</div>
                             <div class="slider_parent">
-                                Episode:
                                 <div class="prehover">
                                     1234
-                                    <div class="slider">
-                                        5678
-                                    </div>
+                                    <div class="slider_count">{{slidercontrol_circle_pos}}</div>
+                                    <div id="circle_test"  class="slider dragstartzone" @mousedown="startDrag" @mousemove="doDrag"></div>
                                     <div class="slider_line slider_middle"></div>
                                     <div class="slider_line slider_left"></div>
-                                    <div class="slider_line slider_right"> </div>
-                                    <div class="slider_line slider_circle"></div>
+                                    <div class="slider_line slider_right"></div>
+                                    <div :style="{left: slidercontrol_circle_pos + 'px'}" class="slider_line slider_circle"></div>
                                 </div>
                             </div>
                         </td>
@@ -194,11 +193,11 @@
 <script>
 import draggable from 'vuedraggable';
 import icons from './icons.vue';
-//import outerclickMixin from './outerclickMixin.js';
+import slidercontrol from './slidercontrol.js';
 import outerclick from '@dipser/outerclick.vuejs';
 export default {
     mixins: [
-        //outerclickMixin
+        slidercontrol,
         outerclick
     ],
     components: {
@@ -224,6 +223,7 @@ export default {
             form_password:'',
             form_email:'',
             list: [],
+            color: '#123456',
         }
     },
     computed: {

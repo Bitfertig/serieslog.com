@@ -255,25 +255,46 @@ svg#logout{ height:1.5em; width:2em; }
     display: inline-block;
     position: relative;
     top: 0;
+    margin-right:5px;
 }
 .prehover{
     display: inline-block;
     position: absolute;
     text-align: center;
-    width: 50px;
+    width: 40px;
+}
+.prehover input{
+    position: absolute;
+    visibility: hidden;
+    z-index: 99999;
+    width: 104px;
+    margin:0;
+    padding:0;
+    left:-75%;
+}
+.slider_count{
+    position: absolute;
+    visibility: hidden;
+    top:0;
+    width: 40px;
+    text-align: center;
+}
+.prehover:hover .slider_count{    
+    visibility: visible;
+    z-index: 9999;
 }
 .slider{
     position: absolute;
     visibility: hidden;
+    top: 0;
+    padding:0;
+    height: 100%;
+    width: 104px;
+    left:-75%;
+    z-index: 99999;
 }
 .prehover:hover .slider{
-    position: absolute;
     visibility: visible;
-    top: 0;
-    height: 100%;
-    width: 124px;
-    left:-75%;
-    text-align: center;
 }
 .slider_line{
     position: absolute;
@@ -282,11 +303,12 @@ svg#logout{ height:1.5em; width:2em; }
 }
 .prehover:hover .slider_middle{
     visibility: visible;
-    top: 0px;
     height: 100%;
-    width: 100px;
+    width: 80px;
     left:-50%;
     background-color: $bg_color;
+    border-top: 1px solid $main_color;
+    border-bottom: 1px solid $main_color;
 }
 .prehover:hover .slider_left{
     visibility: visible;
@@ -295,7 +317,10 @@ svg#logout{ height:1.5em; width:2em; }
     width: 24px;
     left:-75%;
     background-color: $bg_color;
-    border-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border: 1px solid $main_color;
+    border-right: 0;
 }
 .prehover:hover .slider_right{
     visibility: visible;
@@ -304,16 +329,71 @@ svg#logout{ height:1.5em; width:2em; }
     width: 24px;
     right:-75%;
     background-color: $bg_color;
-    border-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border: 1px solid $main_color;
+    border-left: 0;
 }
 .prehover:hover .slider_circle{
     visibility: visible;
     top: 0px;
     height: 24px;
     width: 24px;
-    background-color: plum;
+    //background-color: $main_color;
+    background-color: #DDD;
     border-radius: 50%;
-  }
+    // -31px -- 47px
+    left:8px;
+}
+
+
+
+
+/* //slider v2
+.slider_parent{
+    display: inline-block;
+    position: relative;
+    top: 0;
+    margin-right:5px;
+}
+.prehover{
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    width: 40px;
+}
+.prehover input{
+    display: inline-block;
+    position: absolute;
+    visibility: hidden;
+    width: 100px;
+    margin:0;
+    padding:0;
+    left:-75%;
+}
+.prehover .slider_count{
+    display: inline-block;
+    position: absolute;
+    visibility: hidden;
+    width: 100px;
+    margin:0;
+    padding:0;
+    left:-75%;
+}
+.prehover:hover .slider_count{
+    visibility: visible;
+    z-index: 9999;
+}
+.prehover:hover input[type=range]{
+    position: absolute;
+    visibility: visible;
+    height:25px;
+    appearance: none;
+}
+ */
+
+
+
 
 
 
