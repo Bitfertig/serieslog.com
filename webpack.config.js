@@ -6,7 +6,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
-const config = {
+const config = (env, argv) => {return {
     entry: {
         'main': './src/index.js',
     },
@@ -36,7 +36,7 @@ const config = {
                 ] */
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
             },
-            {
+            /* {
                 test: /tailwind\.css$/,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -51,7 +51,25 @@ const config = {
                     'style-loader',
                     'css-loader'
                 ]
+            }, */
+
+            {
+                test: /\.css$/i,
+                //include: path.resolve(__dirname, 'src'),
+                exclude: /node_modules/,
+                use: [
+                    //'style-loader',
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1
+                        }
+                    },
+                    'postcss-loader'
+                ]
             },
+
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 exclude: path.resolve(__dirname, './src/fonts'),
@@ -86,6 +104,6 @@ const config = {
             filename: '[name].css',
         }),
     ]
-};
+}};
 
 module.exports = config;
