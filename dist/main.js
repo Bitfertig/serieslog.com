@@ -259,6 +259,18 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 /***/ }),
 
+/***/ "./src/css/tailwind.css":
+/*!******************************!*\
+  !*** ./src/css/tailwind.css ***!
+  \******************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack:///./src/css/tailwind.css?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -267,7 +279,7 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.scss */ \"./src/style.scss\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.runtime.esm.js\");\n/* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./vue/app.vue */ \"./src/vue/app.vue\");\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ \"./node_modules/lodash/lodash.js\");\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);\nconsole.log('It`s working.'); // import for all scss data\n\n\n\n // Don't warn about using the dev version of Vue in development.\n\nvue__WEBPACK_IMPORTED_MODULE_1__[\"default\"].config.productionTip = false;\n\nvue__WEBPACK_IMPORTED_MODULE_1__[\"default\"].set(vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"].prototype, '_', lodash__WEBPACK_IMPORTED_MODULE_3___default.a);\nwindow.vm = new vue__WEBPACK_IMPORTED_MODULE_1__[\"default\"]({\n  render: h => h(_vue_app_vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"])\n}).$mount('#app');\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_tailwind_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./css/tailwind.css */ \"./src/css/tailwind.css\");\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ \"./src/style.scss\");\n/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ \"./node_modules/vue/dist/vue.runtime.esm.js\");\n/* harmony import */ var _vue_app_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./vue/app.vue */ \"./src/vue/app.vue\");\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ \"./node_modules/lodash/lodash.js\");\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);\nconsole.log('It`s working.'); // import for all css/scss data\n\n // Tailwind CSS\n\n\n\n // Don't warn about using the dev version of Vue in development.\n\nvue__WEBPACK_IMPORTED_MODULE_2__[\"default\"].config.productionTip = false;\n\nvue__WEBPACK_IMPORTED_MODULE_2__[\"default\"].set(vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"].prototype, '_', lodash__WEBPACK_IMPORTED_MODULE_4___default.a);\nwindow.vm = new vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"]({\n  render: h => h(_vue_app_vue__WEBPACK_IMPORTED_MODULE_3__[\"default\"])\n}).$mount('#app');\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 

@@ -1,6 +1,7 @@
 console.log('It`s working.');
 
-// import for all scss data
+// import for all css/scss data
+import './css/tailwind.css'; // Tailwind CSS
 import './style.scss';
 
 
