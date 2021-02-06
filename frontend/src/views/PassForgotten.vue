@@ -1,5 +1,5 @@
 <template>
-  <div class="pass_forgotten">
+  <div class="pass-forgotten">
     <h1>Password forgotten page</h1>
   </div>
 </template>

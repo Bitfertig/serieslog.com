@@ -1,72 +1,50 @@
 <template>
-
-
   <div class="home">
-<!--     <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!--HelloWorld msg="Welcome to Your Vue.js App"/-->
+     <div id="nav">
+      <router-link to="/">Home</router-link> 
 
-    <div class="form">
-      <div class="header"></div>
-      <div class="center">
-        <div class="content">
-          <div class="input w-56"></div>
-          <div class="input"></div>
-          <div class="input"></div>
-          <div class="input"></div>
-        </div>
-      </div>
+      <router-link to="/register">Register</router-link>
+      <router-link to="/login">Login</router-link>
+      <router-link to="/logout">Logout</router-link>
+      <router-link to="/passforgotten">Password forgotten?</router-link>
+      <router-link to="/settings">Settings</router-link>
+      <br>
+
+      <router-link to="/list">List</router-link>
+      <router-link to="/search">Search</router-link>
+      <router-link to="/genres">Genres</router-link>
+      <router-link to="/description">Description</router-link>
+      <router-link to="/rated">Rated</router-link>
     </div>
-
-    
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import {/* bsp, */ Logo} from '@/components/icons/index.js'  //get icons from icons/index.js
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Logo
   }
 }
 </script>
 
-
 <style lang="scss">
-@import '../css/variables.scss';
 
-.form * { display:flex; }
-.form{
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  height: 500px;
-  .header{
-    justify-content:center;
-    background-color:$baseColorIntense;
-    width: 100%;
-    height: 130px;
-  }
-  .center{
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    background-color:$baseColor;
-    .content{
-      flex-direction: column;
-      justify-content:space-around;
-      height: 100%;
-      .input{
-        justify-content:center;
-        background-color:green;
-        //width: 350px;
-        height: 50px;
+
+  
+  #nav {
+    padding: 30px;
+  
+    a {
+      font-weight: bold;
+      color: #f8f8f8;
+  
+      &.router-link-exact-active {
+        color: green;
       }
     }
   }
-}
-
-
 </style>

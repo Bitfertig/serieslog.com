@@ -19,12 +19,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   { path: '/impress', name: 'Impress', component: () => import(/* webpackChunkName: "impress" */ '../views/Impress.vue') },
-  { path: '/privacy', name: 'Privacy', component: () => import(/* webpackChunkName: "privacy" */ '../views/Privacy.vue') },  
+  { path: '/privacy', name: 'Privacy', component: () => import(/* webpackChunkName: "privacy" */ '../views/Privacy.vue') }, 
+  { path: '/terms_and_conditions', name: 'TermsConditions', component: () => import(/* webpackChunkName: "privacy" */ '../views/TermsConditions.vue') },   
 
   { path: '/register', name: 'Register', component: () => import(/* webpackChunkName: "register" */ '../views/Register.vue') },
   { path: '/login', name: 'Login', component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue') },
   { path: '/logout', name: 'Logout', component: () => import(/* webpackChunkName: "logout" */ '../views/Logout.vue') },
-  { path: '/pass_forgotten', name: 'Pass_forgotten', component: () => import(/* webpackChunkName: "pass_forgotten" */ '../views/Pass_forgotten.vue') },
+  { path: '/passforgotten', name: 'PassForgotten', component: () => import(/* webpackChunkName: "pass_forgotten" */ '../views/PassForgotten.vue') },
   { path: '/settings', name: 'Settings', component: () => import(/* webpackChunkName: "settings" */ '../views/Settings.vue') },
 
   { path: '/list', name: 'List', component: () => import(/* webpackChunkName: "list" */ '../views/List.vue') },
